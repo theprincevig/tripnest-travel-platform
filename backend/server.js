@@ -10,6 +10,12 @@ const cors = require("cors");
 const helmet = require("helmet");
 const compression = require("compression");
 const { connectDB } = require('./configs/db.config.js');
+const AppError = require('./errors/AppError.js');
+
+const authRouter = require('./routes/auth.routes.js');
+const profileRouter = require('./routes/profile.routes.js');
+const listingRouter = require('./routes/listing.routes.js');
+const reviewRouter = require('./routes/review.routes.js');
 
 const app = express();
 
@@ -29,6 +35,25 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 
 connectDB();
+
+app.use("/api/auth/", authRouter);
+app.use("/api/users", profileRouter);
+app.use("/api/listings", listingRouter);
+app.use("/api/listings/:listingId/reviews", reviewRouter);
+
+app.all("/files{/*path}", (req, res, next) => {
+  next(new AppError(404, "Page not found!"));
+});
+
+app.use((err, req, res, next) => {
+  if (res.headersSent) {
+    return next(err);
+  }
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || "Something went wrong.",
+  });
+});
 
 // Health check route (important for Render)
 app.get("/", (req, res) => {
