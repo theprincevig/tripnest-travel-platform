@@ -1,0 +1,17 @@
+import { LoaderCircle } from "lucide-react";
+import { useAuthStore } from "../stores/useAuthStore";
+import { Navigate } from "react-router-dom";
+
+export default function ProtectedRoute ({ children }) {
+  const { authUser, isCheckingAuth } = useAuthStore();
+
+  if (isCheckingAuth) {
+    return (
+      <div className='h-screen flex items-center justify-center'>
+        <LoaderCircle size={30} className='animate-spin' />
+      </div>
+    );
+  }
+
+  return authUser ? children : <Navigate to="/login" replace />
+};
