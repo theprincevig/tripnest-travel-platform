@@ -16,12 +16,6 @@ router.get(
     authController.session
 );
 
-router.get(
-    "/get-user",
-    verifyToken,
-    authController.getUser
-);
-
 router.post(
     "/change-password",
     verifyToken,

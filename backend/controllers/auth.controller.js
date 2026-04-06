@@ -141,27 +141,6 @@ module.exports.logout = async (req, res) => {
     }
 };
 
-module.exports.getUser = async (req, res) => {
-    try {
-        const userId = req.user._id;
-        const user = await User.findById(userId).select("-password");
-
-        if (!user) return res.status(404).josn({ success: false, error: "User not found" });
-
-        return res.status(200).json({
-            success: true,
-            message: "Get user's info!",
-            user
-        });
-    } catch (error) {
-        console.error("Get User's info Error: ", error);
-        return res.status(500).json({
-            success: false,
-            error: error.message
-        });
-    }
-};
-
 module.exports.changePassword = async (req, res) => {
     const userId = req.user._id;
     const { oldPassword, newPassword } = req.body;
