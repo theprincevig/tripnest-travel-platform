@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { useAuthStore } from './stores/useAuthStore';
+import { Toaster } from 'react-hot-toast';
 import { useEffect } from 'react';
 
 import Home from './pages/dashboard/Home';
@@ -10,23 +11,30 @@ import MyListings from './pages/dashboard/MyListings';
 import ChangePassword from './pages/password/ChangePassword';
 import ProtectedRoute from './routes/ProtectedRoute';
 import RoleRoute from './routes/RoleRoute';
-import RootRoute from './routes/RootRoute';
+import CreateListing from './pages/listing/CreateListing';
 
 function App() {
   const { session } = useAuthStore();
 
   useEffect(() => {
     session();
-  }, []);
+  }, [session]);
 
   return (
     <div>
         <Routes>
-          <Route path='/' element={<RootRoute />} />
-          <Route path='/listings' element={<Home />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/listings/:listingId' element={<Listing />} />
+
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Signup />} />
-          <Route path='/listings/:listingId' element={<Listing />} />
+
+          <Route path='/new' element={
+              // <ProtectedRoute>
+                <CreateListing />
+              // </ProtectedRoute>
+            }
+          />
 
           {/* Only host */}
           <Route path='/my-listings' element={
@@ -44,6 +52,8 @@ function App() {
             }
           />
         </Routes>
+
+        <Toaster />
     </div>
   )
 }

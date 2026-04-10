@@ -1,10 +1,9 @@
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 
-
-export default function Home() {
+export default function CreateListing() {
     return (
         <DashboardLayout>
-            Home
+            Create Listing
         </DashboardLayout>
     );
 }
