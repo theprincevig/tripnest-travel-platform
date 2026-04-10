@@ -1,5 +1,5 @@
 const express = require('express');
-const reviewController = require('../controllers');
+const reviewController = require('../controllers/review.controller.js');
 const { verifyToken } = require('../middlewares/auth.middleware');
 const { isReviewAuthor } = require('../middlewares/ownership.middleware');
 
