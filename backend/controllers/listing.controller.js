@@ -38,7 +38,13 @@ module.exports.getAllListings = async (req, res) => {
         }
 
         // My listings filter
-        if (owner === "me" && req.user) {
+        if (owner === "me") {
+            if (!req.user) {
+                return res.status(401).json({
+                    success: false,
+                    error: "Login required"
+                });
+            }
             query.owner = req.user._id;
         }
 
@@ -80,7 +86,7 @@ module.exports.getListing = async (req, res) => {
 
     try {
         const listing = await Listing.findById(listingId)
-            .populate("owner", "username")
+            .populate("owner", "username picture role")
             .populate({
                 path: "reviews",
                 populate: {

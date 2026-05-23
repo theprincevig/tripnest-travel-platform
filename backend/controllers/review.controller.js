@@ -6,7 +6,7 @@ module.exports.getReviews = async (req, res) => {
 
     try {
         const reviews = await Review.find({ listing: listingId })
-            .populate("author", "username");
+            .populate("author", "username picture role");
 
         return res.status(200).json({
             success: true,
@@ -23,8 +23,8 @@ module.exports.getReviews = async (req, res) => {
 };
 
 module.exports.createReview = async (req, res) => {
-    const { listingId } = req.params;
     const userId = req.user._id;
+    const { listingId } = req.params;
     const { rating, comment } = req.body;
 
     if (!rating || !comment) {

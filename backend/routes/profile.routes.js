@@ -1,5 +1,5 @@
 const express = require('express');
-const { verifyToken } = require('../middlewares/auth.middleware');
+const { verifyToken, optionalAuth } = require('../middlewares/auth.middleware');
 const { storage } = require('../configs/cloud.config.js');
 const profileController = require('../controllers/profile.controller.js');
 const multer = require('multer');
@@ -10,7 +10,7 @@ const router = express.Router();
 router.route("/me")
     .get(
         verifyToken,
-        profileController.viewProfile
+        profileController.getOwnProfile
     )
     .patch(
         verifyToken,
@@ -19,9 +19,21 @@ router.route("/me")
     );
 
 router.patch(
-    "/become-host",
+    "/host",
     verifyToken,
     profileController.becomeHost
+);
+
+router.get(
+    "/:username",
+    optionalAuth,
+    profileController.viewProfile
+);
+
+router.patch(
+    "/me/currency",
+    verifyToken,
+    profileController.changeCurrency
 );
 
 module.exports = router;

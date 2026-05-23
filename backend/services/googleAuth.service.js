@@ -14,7 +14,13 @@ module.exports.verifyGoogleToken = async (token) => {
   return {
     googleId: payload.sub,
     email: payload.email,
-    username: payload.name,
+    username: payload.name?.replace(/\s+/g, "").toLowerCase(),
     picture: payload.picture
   };
 };
+
+module.exports.generateGoogleUsername = (username) => {
+  return (
+    username + Math.floor(Math.random() * 1000)
+  );
+}

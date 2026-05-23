@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
+const currencyConfig = require('../configs/currency.config.js');
 
 const userSchema = new Schema({
     username: {
@@ -30,18 +31,28 @@ const userSchema = new Schema({
         enum: ["user", "host", "admin"],
         default: "user"
     },
+    currency: {
+        type: String,
+        enum: Object.keys(currencyConfig),
+        default: "INR"
+    },
     googleId: {
         type: String,
         unique: true,
         sparse: true
+    },
+    isGoogleUser: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true });
 
 // Hash password before saving
 userSchema.pre("save", async function (next) {
     try {
-        if (!this.isModified("password")) return next();
+        if (!this.isModified("password")) return;
         this.password = await bcrypt.hash(this.password, 12);
+        
     } catch (error) {
         console.error(`Error ~ ${error}`);
         next(error);
@@ -49,7 +60,7 @@ userSchema.pre("save", async function (next) {
 });
 
 // Compare passwords
-userSchema.methods.comparePassword = (candidatePassword) => {
+userSchema.methods.comparePassword = function (candidatePassword) {
     return bcrypt.compare(candidatePassword, this.password);
 };
 
