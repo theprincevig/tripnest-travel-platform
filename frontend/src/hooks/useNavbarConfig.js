@@ -5,7 +5,10 @@ export const useShowSearch = () => {
     const hiddenRoutes = new Set([
         "/login", 
         "/register", 
-        "/change-password"
+        "/users/me",
+        "/users/:username",
+        "/change-password",
+        "/listings/:listingId/edit"
     ]);
     
     return !hiddenRoutes.has(pathname);

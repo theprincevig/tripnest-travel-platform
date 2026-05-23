@@ -1,18 +1,24 @@
-import { Blocks, Menu, Search } from "lucide-react";
+import { Globe, Menu, Plus, Search } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useListingStore } from "../../stores/useListingStore";
 import { useAuthStore } from "../../stores/useAuthStore";
 import { useState } from "react";
 import toast from "react-hot-toast";
+
 import SearchInput from "../inputs/SearchInput";
+import CurrencyModal from "../modals/CurrencyModal";
 import Modal from "../Modal";
 
 export default function Navbar({ isSearchVisible }) {
     const { getAllListings, setFilters } = useListingStore();
     const { authUser, becomeHost } = useAuthStore();
     
+    const HOST = authUser?.role === "host";
+
     const [value, setValue] = useState("");
     const [userModal, setUserModal] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -40,37 +46,53 @@ export default function Navbar({ isSearchVisible }) {
     }
 
     return (
-        <div className="sticky top-0 w-full flex flex-col border-b-2 border-black/5 bg-zinc-200/40 backdrop-blur-md p-2 z-1000">
-            <div className="w-full flex items-center justify-between h-20">
+        <div className="sticky top-0 w-full flex flex-col items-center border-b-2 border-zinc-200 bg-zinc-200/40 backdrop-blur-md p-2 z-1000">
+            <div className="w-[95%] h-20 flex items-center justify-between">
                 {/* logo section */}
                 <div className="flex items-center">
                     <img 
                         src="/tripnest-logo.png" 
                         alt="tripnest-logo" 
                         onClick={() => navigate("/")}
-                        className="w-40 object-cover ml-5 cursor-pointer" 
+                        className="w-40 object-cover cursor-pointer" 
                     />
                 </div>
 
-                <div 
-                    onClick={() => navigate("/new")}
-                    className="flex items-center gap-2 text-lg p-4 hover:scale-110 transition-all duration-200 cursor-pointer"
-                >
-                    <Blocks size={18} />
-                    <span className="font-[Ramabhadra]">New Listing</span>
-                </div>
+                {isSearchVisible && HOST && (
+                    <div 
+                        onClick={() => navigate("/new")}
+                        className="flex items-center gap-1 opacity-70 hover:opacity-100 transition-all duration-200 cursor-pointer"
+                    >
+                        <Plus size={16} />
+                        <span className="">Create own Listings</span>
+                    </div>
+                )}
 
                 {/* user section */}
                 <div className="flex items-center justify-end gap-4">
-                    <div 
-                        onClick={handleHostButton}
-                        className="p-2 rounded-full text-sm opacity-70 font-[Ramabhadra] hover:bg-black/10 transition-all cursor-pointer"
+                    <button 
+                        onClick={() => {
+                            if (HOST) {
+                                navigate("/my-listings");
+                            } else {
+                                handleHostButton();
+                            }
+                        }}
+                        className="px-3 py-2 rounded-full text-sm opacity-80 hover:bg-zinc-200/60 transition-all cursor-pointer"
                     >
-                        Become a host
+                        {HOST ? "My Listings" : "Become a host"}
+                    </button>
+
+                    <div 
+                        onClick={() => setOpenModal(true)}
+                        className="rounded-full p-3 bg-zinc-200/60 hover:bg-zinc-200 transition-all duration-200 cursor-pointer"
+                    >
+                        <Globe size={18} />
                     </div>
+
                     <div 
                         onClick={() => setUserModal(prev => !prev)}
-                        className="rounded-full p-3 bg-black/5 mr-10 hover:bg-black/10 transition-all cursor-pointer"
+                        className="rounded-full p-3 bg-zinc-200/60 hover:bg-zinc-200 transition-all duration-200 cursor-pointer"
                     >
                         <Menu size={18} />
                     </div>
@@ -98,6 +120,11 @@ export default function Navbar({ isSearchVisible }) {
                     onBecomeHost={handleHostButton}
                 />
             }
+
+            <CurrencyModal 
+                isOpen={openModal}
+                onClose={() => setOpenModal(false)}
+            />
         </div>
     );
 }

@@ -5,10 +5,17 @@ import { API_PATHS } from '../utils/apiPaths';
 
 export const useListingStore = create(
     persist((set, get) => ({
-        listings: [],
-        listing: null,
+        // States
+        allListings: [],
+        myListings: [],
+        singleListing: null,
 
-        loading: false,
+        // Loading states
+        listingsLoading: false,
+        singleListingLoading: false,
+        createListingLoading: false,
+        updateListingLoading: false,
+        deleteListingLoading: false,
         error: null,
 
         totalListings: 0,
@@ -23,8 +30,10 @@ export const useListingStore = create(
             sort: ""
         },
 
+        clearSingleListing: () => set({ singleListing: null }),
+
         getAllListings: async (customFilters = {}) => {
-            set({ loading: true, error: null });
+            set({ listingsLoading: true, error: null });
             try {
                 const { filters, currentPage } = get();
                 const query = {
@@ -49,7 +58,7 @@ export const useListingStore = create(
                 } = res.data;
 
                 set({
-                    listings: listings || [],
+                    allListings: listings || [],
                     totalListings,
                     currentPage: page,
                     totalPages
@@ -57,34 +66,65 @@ export const useListingStore = create(
 
             } catch (error) {
                 console.error(`Get Listings error: ${error}`);
-                set({ listings: [], error: error.message });
+                set({ allListings: [], error: error.message });
                 throw error.response?.data || error;
 
             } finally {
-                set({ loading: false });
+                set({ listingsLoading: false });
+            }
+        },
+
+        getMyListings: async () => {
+            set({ listingsLoading: true, error: null });
+            try {
+                const res = await axiosInstance.get(API_PATHS.LISTINGS.GET_ALL, {
+                    params: { owner: "me" }
+                });
+
+                const {
+                    listings,
+                    totalListings,
+                    currentPage,
+                    totalPages
+                } = res.data;
+
+                set({
+                    myListings: listings || [],
+                    totalListings,
+                    currentPage,
+                    totalPages
+                });
+
+            } catch (error) {
+                console.error(`Get My Listings error: ${error}`);
+                set({ myListings: [], error: error.message });
+                throw error.response?.data || error;
+
+            } finally {
+                set({ listingsLoading: false });
             }
         },
 
         getListing: async (listingId) => {
-            set({ loading: true, error: null });
+            set({ singleListingLoading: true, error: null });
             try {
                 const res = await axiosInstance.get(API_PATHS.LISTINGS.GET_ONE(listingId));
 
-                set({ listing: res.data.listing });
+                set({ singleListing: res.data.listing });
                 return res.data.listing;
 
             } catch (error) {
                 console.error(`Get Listing error: ${error}`);
-                set({ listing: null, error: error.message });
+                set({ singleListing: null, error: error.message });
                 throw error.response?.data || error;
 
             } finally {
-                set({ loading: false });
+                set({ singleListingLoading: false });
             }
         },
 
         createListing: async (data) => {
-            set({ loading: true });
+            set({ createListingLoading: true });
             try {
                 const formData = new FormData();
 
@@ -98,7 +138,10 @@ export const useListingStore = create(
                 );
 
                 // Refresh listings
-                await get().getAllListings();
+                await Promise.all([
+                    get().getAllListings(),
+                    get().getMyListings()
+                ]);
                 return res.data;
 
             } catch (error) {
@@ -106,12 +149,12 @@ export const useListingStore = create(
                 throw error.response?.data || error;
 
             } finally {
-                set({ loading: false });
+                set({ createListingLoading: false });
             }
         },
 
         updateListing: async (listingId, data) => {
-            set({ loading: true });
+            set({ updateListingLoading: true });
             try {
                 const formData = new FormData();
 
@@ -126,9 +169,20 @@ export const useListingStore = create(
                 );
 
                 set((state) => ({
-                    listings: state.listings.map((l) =>
+                    // Update all listings state
+                    allListings: state.allListings.map((l) =>
                         l._id === listingId ? res.data.listing : l
                     ),
+
+                    // Update my listings state
+                    myListings: state.myListings.map((l) => 
+                    l._id === listingId ? res.data.listing : l
+                    ),
+
+                    singleListing:
+                        state.singleListing?._id === listingId
+                            ? res.data.listing
+                            : state.singleListing
                 }));
                 return res.data;
 
@@ -137,26 +191,37 @@ export const useListingStore = create(
                 throw error.response?.data || error;
 
             } finally {
-                set({ loading: false });
+                set({ updateListingLoading: false });
             }
         },
 
         deleteListing: async (listingId) => {
-            set({ loading: true });
+            set({ deleteListingLoading: true });
             try {
                 await axiosInstance.delete(API_PATHS.LISTINGS.DELETE(listingId));
 
                 set((state) => ({
-                    listings: state.listings.filter(
+                    // Filter all listings
+                    allListings: state.allListings.filter(
                         (l) => l._id !== listingId
                     ),
+
+                    // Filter my listings
+                    myListings: state.myListings.filter(
+                        (l) => l._id !== listingId
+                    ),
+
+                    singleListing:
+                        state.singleListing?._id === listingId
+                            ? null
+                            : state.singleListing
                 }));
             } catch (error) {
                 console.error(`Delete Listing error: ${error}`);
                 throw error.response?.data || error;
 
             } finally {
-                set({ loading: false });
+                set({ deleteListingLoading: false });
             }
         },
 

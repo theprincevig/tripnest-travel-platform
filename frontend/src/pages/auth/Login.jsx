@@ -1,6 +1,6 @@
 import { KeyRound, Loader, Loader2, User } from "lucide-react";
 import { useAuthStore } from "../../stores/useAuthStore";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { hasErrors, validateLogin } from "../../errors/newErrors";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import AuthInput from "../../components/inputs/AuthInput";
 import AuthHeader from "../../components/AuthHeader";
+import GoogleAuth from "./GoogleAuth";
 
 export default function Login() {
     const initState = { username: "", password: "" };
@@ -15,7 +16,11 @@ export default function Login() {
 
     const [formData, setFormData] = useState(initState);
     const [errors, setErrors] = useState(initState);
+
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || "/";
 
     const handleChange = (field) => (e) => {
         setFormData(prev => ({ ...prev, [field]: e.target.value }));
@@ -33,12 +38,12 @@ export default function Login() {
         try {
             await login(formData);
             setFormData(initState);
-            navigate("/");
+            navigate(from, { replace: true });
             toast.success("Welcome back to the tripnest!");
 
         } catch (error) {
-            console.error(error.message);
-            toast.error(error.response?.data?.message || "Failed to login.");
+            console.error(error.error);
+            toast.error(error.error || "Failed to login");
         }
     }
 
@@ -87,7 +92,7 @@ export default function Login() {
                             </button>
                         </form>
 
-                        <p className="text-sm text-slate-800 mt-3">
+                        <p className="text-sm text-slate-800 mt-3 mb-5">
                             Don't have an Account?{" "}
                             <Link 
                                 to="/register"
@@ -96,6 +101,9 @@ export default function Login() {
                                 Signup
                             </Link>
                         </p>
+
+                        {/* Login with Google */}
+                        <GoogleAuth />
                     </>
                 )}
             </div>

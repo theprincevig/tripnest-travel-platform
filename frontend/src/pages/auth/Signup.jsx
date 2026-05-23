@@ -1,7 +1,7 @@
 import { KeyRound, Loader, Loader2, Mail, User } from "lucide-react";
 import { useAuthStore } from "../../stores/useAuthStore";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { hasErrors, validateSignup } from "../../errors/newErrors";
 import toast from "react-hot-toast";
 
@@ -9,6 +9,7 @@ import AuthHeader from "../../components/AuthHeader";
 import AuthInput from "../../components/inputs/AuthInput";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import PasswordStrengthMeter from "../../components/inputs/passwordStrengthMeter";
+import GoogleAuth from "./GoogleAuth";
 
 export default function Signup() {
     const initState = {
@@ -20,7 +21,11 @@ export default function Signup() {
     const { isSigningUp, signup } = useAuthStore();
     const [formData, setFormData] = useState(initState);
     const [errors, setErrors] = useState(initState);
+
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || "/";
 
     const handleChange = (field) => (e) => {
         setFormData(prev => ({ ...prev, [field]: e.target.value }));
@@ -38,12 +43,12 @@ export default function Signup() {
         try {
             await signup(formData);
             setFormData(initState);
-            navigate("/");
+            navigate(from, { replace: true });
             toast.success("Welcome to Tripnest!");
 
         } catch (error) {
-            console.error(error.message);
-            toast.error(error.response?.data?.message || "Failed to sign up.");
+            console.error(error.error);
+            toast.error(error.error || "Failed to sign up.");
         }
     }
 
@@ -128,6 +133,9 @@ export default function Signup() {
                                 </Link>
                             </p>
                         </form>
+
+                        {/* Login with Google */}
+                        <GoogleAuth />
                     </>
                 )}
             </div>

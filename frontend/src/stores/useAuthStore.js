@@ -2,12 +2,23 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { axiosInstance } from '../lib/axios';
 import { API_PATHS } from '../utils/apiPaths';
+import { currencyConfig } from '../configs/currency.config';
+
+// helper function for change currency easily
+const normalizeUser = (user) => {
+    if (!user) return null;
+
+    return {
+        ...user,
+        currencyDetails: currencyConfig[user.currency] || currencyConfig.INR
+    };
+};
 
 export const useAuthStore = create(
     persist((set, get) => ({
         authUser: null,
 
-        isCheckingAuth: true,
+        isCheckingAuth: false,
         isSigningUp: false,
         isLoggingIn: false,
         isUpdatingProfile: false,
@@ -22,7 +33,7 @@ export const useAuthStore = create(
                 const res = await axiosInstance.get(API_PATHS.AUTH.SESSION);
                 const { user } = res.data;
 
-                set({ authUser: user });
+                set({ authUser: normalizeUser(user) });
                 return user;
 
             } catch (error) {
@@ -41,11 +52,8 @@ export const useAuthStore = create(
                 const res = await axiosInstance.post(API_PATHS.AUTH.REGISTER, data);
                 const { user } = res.data;
 
-                set({ authUser: user });
-                return {
-                    user,
-                    redirect: res.data?.redirect || "/"
-                };
+                set({ authUser: normalizeUser(user) });
+                return user;
 
             } catch (error) {
                 console.error(`Signup error: ${error}`);
@@ -62,11 +70,8 @@ export const useAuthStore = create(
                 const res = await axiosInstance.post(API_PATHS.AUTH.LOGIN, data);
                 const { user } = res.data;
 
-                set({ authUser: user });
-                return {
-                    user,
-                    redirect: res.data?.redirect || "/"
-                };
+                set({ authUser: normalizeUser(user) });
+                return user;
 
             } catch (error) {
                 console.error(`Login error: ${error}`);
@@ -81,10 +86,10 @@ export const useAuthStore = create(
             set({ isLoggingIn: true });
             try {
                 const res = await axiosInstance.post(API_PATHS.AUTH.GOOGLE_LOGIN, data);
-                const { user } = res.data;
+                const { user, message } = res.data;
                 
-                set({ authUser: user });
-                return user;
+                set({ authUser: normalizeUser(user) });
+                return { user, message };
 
             } catch (error) {
                 console.error(`Google login error: ${error}`);
@@ -111,8 +116,10 @@ export const useAuthStore = create(
                 const res = await axiosInstance.patch(API_PATHS.PROFILE.BECOME_HOST);
                 
                 set((state) => ({
-                    ...state.authUser,
-                    role: "host"
+                    authUser: {
+                        ...state.authUser,
+                        role: "host"
+                    },
                 }));
 
                 return res.data;
@@ -123,18 +130,31 @@ export const useAuthStore = create(
             }
         },
 
-        viewProfile: async () => {
+        getOwnProfile: async () => {
             try {
                 const res = await axiosInstance.get(API_PATHS.PROFILE.ME);
                 const { user } = res.data;
 
                 if (res.data?.user) {
-                    set({ authUser: user });
+                    set({ authUser: normalizeUser(user) });
                     return user;
                 } else {
-                    console.error("Failed to fetch user's profile: ", res.data?.error);
+                    console.error("Failed to fetch own profile: ", res.data?.error);
                     return null;
                 }
+            } catch (error) {
+                console.error(`Own profile error: ${error}`);
+                throw error.response?.data || error;
+            }
+        },
+
+        viewProfile: async (username) => {
+            try {
+                const res = await axiosInstance.get(API_PATHS.PROFILE.VIEW_PROFILE(username));
+                const { user } = res.data;
+
+                return normalizeUser(user);
+                
             } catch (error) {
                 console.error(`View profile error: ${error}`);
                 throw error.response?.data || error;
@@ -157,7 +177,7 @@ export const useAuthStore = create(
                 const { user } = res.data;
 
                 if (res.data?.user) {
-                    set({ authUser: user });
+                    set({ authUser: normalizeUser(user) });
                     return user;
                 } else {
                     console.error("No user object returned from server");
@@ -187,6 +207,26 @@ export const useAuthStore = create(
 
             } catch (error) {
                 console.error(`Change password error: ${error}`);
+                throw error.response?.data || error;
+
+            } finally {
+                set({ isResettingPassword: false });
+            }
+        },
+
+        changeCurrency: async (currency) => {
+            try {
+                const res = await axiosInstance.patch(
+                    API_PATHS.PROFILE.CHANGE_CURRENCY,
+                    { currency }
+                );
+
+                const { user } = res.data;
+                set({ authUser: normalizeUser(user) });
+
+                return user;
+            } catch (error) {
+                console.error(`Change currency error: ${error}`);
                 throw error.response?.data || error;
             }
         },

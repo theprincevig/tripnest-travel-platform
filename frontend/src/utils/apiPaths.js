@@ -9,6 +9,8 @@ export const API_PATHS = {
     },
     PROFILE: {
         ME: "/api/users/me",
+        CHANGE_CURRENCY: "/api/users/me/currency",
+        VIEW_PROFILE: (username) => `/api/users/${username}`,
         BECOME_HOST: "/api/users/become-host"
     },
     LISTINGS: {
@@ -22,5 +24,8 @@ export const API_PATHS = {
         GET_ALL: (listingId) => `/api/listings/${listingId}/reviews`,
         CREATE: (listingId) => `/api/listings/${listingId}/reviews`,
         DELETE: (listingId, reviewId) => `/api/listings/${listingId}/reviews/${reviewId}`
+    },
+    RATES: {
+        EXCHANGE: "/api/exchange-rates"
     }
 };

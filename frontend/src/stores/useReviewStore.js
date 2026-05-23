@@ -4,11 +4,15 @@ import { API_PATHS } from '../utils/apiPaths';
 
 export const useReviewStore = create((set, get) => ({
     reviews: [],
-    loading: false,
+
+    reviewsLoading: false,
+    createReviewLoading: false,
+    deleteReviewLoading: false,
+
     error: null,
 
     getReviews: async (listingId) => {
-        set({ loading: true, error: null });
+        set({ reviewsLoading: true, error: null });
         try {
             const res = await axiosInstance.get(API_PATHS.REVIEWS.GET_ALL(listingId));
             set({ reviews: res.data.reviews || [] });
@@ -19,12 +23,12 @@ export const useReviewStore = create((set, get) => ({
             throw error.response?.data || error;
 
         } finally {
-            set({ laoding: false });
+            set({ reviewsLoading: false });
         }
     },
 
     createReview: async (listingId, data) => {
-        set({ loading: true });
+        set({ createReviewLoading: true });
         try {
             const res = await axiosInstance.post(API_PATHS.REVIEWS.CREATE(listingId), data);
 
@@ -41,12 +45,12 @@ export const useReviewStore = create((set, get) => ({
             throw error.response?.data || error;
 
         } finally {
-            set({ loading: false });
+            set({ createReviewLoading: false });
         }
     },
 
     deleteReview: async (listingId, reviewId) => {
-        set({ loading: true });
+        set({ deleteReviewLoading: true });
         try {
             await axiosInstance.delete(API_PATHS.REVIEWS.DELETE(listingId, reviewId));
             set((state) => ({
@@ -59,7 +63,7 @@ export const useReviewStore = create((set, get) => ({
             throw error.response?.data || error;
 
         } finally {
-            set({ loading: false });
+            set({ deleteReviewLoading: false });
         }
     },
 

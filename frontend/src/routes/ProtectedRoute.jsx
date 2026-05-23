@@ -1,9 +1,10 @@
 import { LoaderCircle } from "lucide-react";
 import { useAuthStore } from "../stores/useAuthStore";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 export default function ProtectedRoute ({ children }) {
   const { authUser, isCheckingAuth } = useAuthStore();
+  const location  = useLocation();
 
   if (isCheckingAuth) {
     return (
@@ -13,5 +14,13 @@ export default function ProtectedRoute ({ children }) {
     );
   }
 
-  return authUser ? children : <Navigate to="/login" state={{ from: location }} replace />
+  return authUser ? (
+    children 
+  ) : (
+    <Navigate 
+      to="/login" 
+      state={{ from: location }} 
+      replace 
+    />
+  );
 };

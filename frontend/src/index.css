@@ -18,3 +18,121 @@
         overflow-x: hidden;
     }
 }
+
+.primary-btn {
+    @apply w-full max-w-50 py-2 mt-8 rounded-xl bg-primary text-white font-[Ramabhadra] shadow-xl inset-shadow-sm hover:bg-blue-600 transition-all active:scale-95 cursor-pointer disabled:bg-gray-400;
+}
+
+.error-btn {
+  @apply w-full max-w-50 py-2 mt-8 rounded-xl bg-red-500 text-white font-[Ramabhadra] shadow-xl inset-shadow-sm hover:bg-red-600 transition-all active:scale-95 cursor-pointer disabled:bg-gray-400;
+}
+
+/* -------------------------------------------------- */
+/* Shimmer Effect (Loading Placeholder)            */
+/* -------------------------------------------------- */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background-color: #ffffff;    /* light */
+}
+
+.dark .shimmer {
+  background-color: #1f2937; /* dark */
+}
+
+.shimmer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.03),
+    rgba(0, 0, 0, 0.06),
+    rgba(0, 0, 0, 0.03)
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+.dark .shimmer::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+}
+
+@keyframes shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* -------------------------------------------------- */
+/* Open & Close Effect animation for MODALS           */
+/* -------------------------------------------------- */
+.open {
+  animation: open-animate 0.2s ease-out;
+}
+
+.close {
+  animation: close-animate 0.2s ease-out;
+}
+
+@keyframes open-animate {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes close-animate {
+  from {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+}
+
+/* -------------------------------------------------- */
+/* Open & Close Effect animation for ALERTS           */
+/* -------------------------------------------------- */
+.open-alert {
+  animation: open-alert-animate 0.2s ease-out forwards;
+}
+
+.close-alert {
+  animation: close-alert-animate 0.2s ease-out forwards;
+}
+
+@keyframes open-alert-animate {
+  from {
+    transform: scale(0.90);
+    opacity: 0;
+  }
+  to {
+    transform: scale();
+    opacity: 1;
+  }
+}
+
+@keyframes close-alert-animate {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.90);
+    opacity: 0;
+  }
+}
