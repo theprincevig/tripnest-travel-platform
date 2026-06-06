@@ -37,7 +37,7 @@ module.exports.getAllListings = async (req, res) => {
             if (maxPrice) query.price.$lte = Number(maxPrice);
         }
 
-        // My listings filter
+        // My listings and other user's listings filter
         if (owner === "me") {
             if (!req.user) {
                 return res.status(401).json({
@@ -46,6 +46,8 @@ module.exports.getAllListings = async (req, res) => {
                 });
             }
             query.owner = req.user._id;
+        } else if (owner) {
+            query.owner = owner;
         }
 
         // Pagination

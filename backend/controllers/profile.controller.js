@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 const { cloudinary } = require("../configs/cloud.config");
 const User = require("../models/user.model.js");
+const Listing = require("../models/listing.model.js");
+const Review = require("../models/review.model.js");
 const currencyConfig = require("../configs/currency.config.js");
 
 // -------------------
 // HELPER
 // -------------------
-const SAFE_FIELDS = "username picture role currency";
+const SAFE_FIELDS = "username fullName dob phone gender address picture role currency hostProfile";
 
 const deleteFromCloudinary = async (imageUrl) => {
     if (!imageUrl || !imageUrl.includes("res.cloudinary.com")) return;
@@ -20,9 +22,19 @@ const deleteFromCloudinary = async (imageUrl) => {
     await cloudinary.uploader.destroy(publicId);
 };
 
-const applyProfileUpdates = async (user, req) => {
-    const { username, picture } = req.body;
+const applyProfileUpdates = async (user, profileData, req) => {
+    const {
+        username,
+        picture,
+        fullName,
+        dob,
+        phone,
+        gender,
+        address,
+        hostProfile
+    } = profileData;
 
+    // Username
     if (username !== undefined && username !== user.username) {
         const existingUser = await User.findOne({
             username: username.toLowerCase(),
@@ -34,6 +46,39 @@ const applyProfileUpdates = async (user, req) => {
         }
 
         user.username = username.toLowerCase();
+    }
+
+    // Fullname
+    if (fullName) {
+        user.fullName = {
+            firstName: fullName.firstName || user.fullName?.firstName,
+            lastName: fullName.lastName || user.fullName?.lastName,
+        };
+    }
+
+    // Basic profile
+    if (dob !== undefined) user.dob = dob;
+    if (phone !== undefined) user.phone = phone;
+    if (gender !== undefined) user.gender = gender;
+
+    // Address
+    if (address) {
+        user.address = {
+            city: address.city || user.address?.city,
+            state: address.state || user.address?.state,
+            country: address.country || user.address?.country,
+        };
+    }
+
+    // Host-only fields
+    if (user.role === "host" && hostProfile) {
+        if (hostProfile.about !== undefined) {
+            user.hostProfile.about = hostProfile.about;
+        }
+
+        if (hostProfile.languages !== undefined) {
+            user.hostProfile.languages = hostProfile.languages;
+        }
     }
 
     if (picture === "") {
@@ -89,12 +134,13 @@ module.exports.viewProfile = async (req, res) => {
 
 module.exports.updateProfile = async (req, res) => {
     const userId = req.user._id;
+    const profileData = JSON.parse(req.body.profileData);
 
     try {
         const user = await User.findById(userId);
         if (!user) return res.status(404).json({ success: false, error: "User not found" });
 
-        await applyProfileUpdates(user, req);
+        await applyProfileUpdates(user, profileData, req);
         await user.save();
 
         const updatedUser = await User.findById(userId).select(SAFE_FIELDS);
@@ -172,6 +218,51 @@ module.exports.changeCurrency = async (req, res) => {
         
     } catch (error) {
         console.error("Change currency Error: ", error);
+        return res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+};
+
+module.exports.hostStats = async (req, res) => {
+    const { hostId } = req.params;
+
+    try {
+        const listings = await Listing.find({ owner: hostId });
+
+        const listingIds = listings.map(
+            (listing) => listing._id
+        );
+
+        const reviews = await Review.find({
+            listing: { $in: listingIds }
+        });
+
+        const totalListings = listings.length;
+        const totalReviews = reviews.length;
+
+        const averageRating = 
+            totalReviews > 0 
+                ? (
+                    reviews.reduce(
+                        (acc, review) => 
+                            acc + review.rating,
+                        0
+                    ) / totalReviews
+                ).toFixed(1)
+                : "0.0";
+
+        return res.status(200).json({
+            success: true,
+            stats: {
+                totalListings,
+                totalReviews,
+                averageRating
+            }
+        });
+    } catch (error) {
+        console.error("Host stats Error: ", error);
         return res.status(500).json({
             success: false,
             error: error.message

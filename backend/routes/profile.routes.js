@@ -25,6 +25,11 @@ router.patch(
 );
 
 router.get(
+    "/:hostId/stats",
+    profileController.hostStats
+);
+
+router.get(
     "/:username",
     optionalAuth,
     profileController.viewProfile

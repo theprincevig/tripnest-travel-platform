@@ -6,7 +6,7 @@ module.exports.getReviews = async (req, res) => {
 
     try {
         const reviews = await Review.find({ listing: listingId })
-            .populate("author", "username picture role");
+            .populate("author", "username picture role createdAt");
 
         return res.status(200).json({
             success: true,
@@ -27,7 +27,10 @@ module.exports.createReview = async (req, res) => {
     const { listingId } = req.params;
     const { rating, comment } = req.body;
 
-    if (!rating || !comment) {
+    if (rating < 0.5 || 
+        rating > 5 || 
+        !comment?.trim()
+    ) {
         return res.status(400).json({ success: false, error: "All fields are required" });
     }
 
@@ -35,12 +38,14 @@ module.exports.createReview = async (req, res) => {
         const listing = await Listing.findById(listingId);
         if (!listing) return res.status(404).json({ success: false, error: "Listing not found" });
 
-        const review = await Review.create({
+        let review = await Review.create({
             rating,
             comment,
             listing: listingId,
             author: userId
         });
+
+        review = await review.populate("author", "username picture role createdAt");
 
         listing.reviews.push(review._id);
         await listing.save();
@@ -66,7 +71,7 @@ module.exports.deleteReview = async (req, res) => {
         const review = await Review.findById(reviewId);
         if (!review) return res.status(404).json({ success: false, error: "Review not found" });
 
-        await Listing.findByIdAndDelete(
+        await Listing.findByIdAndUpdate(
             listingId,
             { $pull: { reviews: reviewId } }
         );

@@ -20,7 +20,7 @@ const storage = new CloudinaryStorage({
     cloudinary: cloudinary, // Connect storage to configured Cloudinary instance
     params: {
         folder: 'tripNest-cloudinary',           // All uploaded files stored inside this folder
-        allowed_formats: ["png", "jpg", "jpeg"] // Restrict uploads to safe image formats
+        allowed_formats: ["png", "jpg", "jpeg", "webp"] // Restrict uploads to safe image formats
     },
 });
 

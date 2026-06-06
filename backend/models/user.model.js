@@ -11,6 +11,21 @@ const userSchema = new Schema({
         unique: true,
         trim: true
     },
+    fullName: {
+        firstName: {
+            type: String,
+            default: "",
+            trim: true
+        },
+        lastName: {
+            type: String,
+            default: "",
+            trim: true
+        },
+    },
+    dob: {
+        type: Date,
+    },
     email: {
         type: String,
         required: true,
@@ -20,16 +35,56 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
+        required: function () {
+            return !this.isGoogleUser;
+        }
+    },
+    phone: {
+        type: String,
+        default: "",
+        trim: true
+    },
+    gender: {
+        type: String,
+        enum: ["male", "female", "other"],
+        default: ""
     },
     picture: {
         type: String,
         default: ""
     },
+    address: {
+        city: {
+            type: String,
+            trim: true,
+            default: ""
+        },
+        state: {
+            type: String,
+            trim: true,
+            default: ""
+        },
+        country: {
+            type: String,
+            trim: true,
+            default: ""
+        },
+    },
     role: {
         type: String,
         enum: ["user", "host", "admin"],
         default: "user"
+    },
+    hostProfile: {
+        about: {
+            type: String,
+            maxlength: 500,
+            default: ""
+        },
+        languages: [{
+            type: String,
+            default: ""
+        }],
     },
     currency: {
         type: String,
