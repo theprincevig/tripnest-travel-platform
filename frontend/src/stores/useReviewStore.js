@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { axiosInstance } from '../lib/axios';
 import { API_PATHS } from '../utils/apiPaths';
+import { useHostStore } from './useHostStore';
 
 export const useReviewStore = create((set, get) => ({
     reviews: [],
@@ -27,17 +28,23 @@ export const useReviewStore = create((set, get) => ({
         }
     },
 
-    createReview: async (listingId, data) => {
+    createReview: async (listingId, hostId, data) => {
         set({ createReviewLoading: true });
         try {
             const res = await axiosInstance.post(API_PATHS.REVIEWS.CREATE(listingId), data);
 
             set((state) => ({
                 reviews: [
-                    res.data.reviews,
+                    res.data.review,
                     ...state.reviews
                 ],
             }));
+
+            // refresh host stats
+            await useHostStore
+                .getState()
+                .getHostStats(hostId);
+
             return res.data;
 
         } catch (error) {

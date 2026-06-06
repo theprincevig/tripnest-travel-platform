@@ -11,7 +11,7 @@ import HomeSkeleton from "../../components/skeletons/HomeSkeleton";
 export default function Home() {
     const { allListings, getAllListings, listingsLoading } = useListingStore();
     const activeCurrency = useActiveCurrency();
-    const navigate = useNavigate();
+    const navigate = useNavigate();    
 
     useEffect(() => {
         getAllListings();
@@ -38,7 +38,6 @@ export default function Home() {
                                     key={listing._id}
                                     listing={listing}
                                     userCurrency={activeCurrency.code}
-                                    onListing={() => navigate(`/listings/${listing._id}`)}
                                 />
                             ))}
                         </div>

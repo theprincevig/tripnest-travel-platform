@@ -6,7 +6,7 @@ export default function Footer() {
     const activeCurrency = useActiveCurrency();
 
     return (
-        <footer className="w-full border-t border-zinc-200 bg-zinc-50 pb-20 mt-auto">
+        <footer className="w-full border-t border-zinc-200/60 bg-zinc-100 pb-20 mt-auto">
             <div className="flex flex-col gap-4 mx-8 p-4">
                 {/* Top */}
                 <div className="text-sm text-zinc-500">

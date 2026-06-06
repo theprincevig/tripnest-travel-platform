@@ -1,12 +1,13 @@
+import { Link } from "react-router-dom";
 import { useExchangeRateStore } from "../../stores/useExchangeRateStore";
 import { formatPrice } from "../../utils/formatPrice";
 
-export default function ListingCard({ listing, userCurrency, onListing }) {
+export default function ListingCard({ listing, userCurrency }) {
     const { rates, isFetchingRates } = useExchangeRateStore();
 
     return (
-        <div 
-            onClick={onListing}
+        <Link 
+            to={`/listings/${listing._id}`}
             className="flex flex-col gap-2 cursor-pointer"
         >
             <img 
@@ -31,6 +32,6 @@ export default function ListingCard({ listing, userCurrency, onListing }) {
                     )}
                 </p>
             </div>
-        </div>
+        </Link>
     );
 }

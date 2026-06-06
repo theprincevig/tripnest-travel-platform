@@ -11,7 +11,8 @@ export const API_PATHS = {
         ME: "/api/users/me",
         CHANGE_CURRENCY: "/api/users/me/currency",
         VIEW_PROFILE: (username) => `/api/users/${username}`,
-        BECOME_HOST: "/api/users/become-host"
+        BECOME_HOST: "/api/users/host",
+        HOST_STATS: (hostId) => `/api/users/${hostId}/stats`
     },
     LISTINGS: {
         GET_ALL: "/api/listings",

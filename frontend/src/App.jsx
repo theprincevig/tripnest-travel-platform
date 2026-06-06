@@ -30,6 +30,12 @@ function App() {
     <div>
         <Routes>
           <Route path='/' element={<Home />} />
+
+          {/* Auth */}
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Signup />} />
+
+          {/* Listing */}
           <Route path='/listings/:listingId' element={<Listing />} />
           <Route path='/listings/:listingId/edit' element={
               <ProtectedRoute>
@@ -40,9 +46,7 @@ function App() {
             }
           />
 
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Signup />} />
-
+          {/* Create listing */}
           <Route path='/new' element={
               <ProtectedRoute>
                 <RoleRoute role="host">
@@ -52,7 +56,7 @@ function App() {
             }
           />
 
-          {/* Only host */}
+          {/* My listings -> only host */}
           <Route path='/my-listings' element={
             <ProtectedRoute>
               <RoleRoute role="host">
@@ -61,6 +65,7 @@ function App() {
             </ProtectedRoute>
           } />
 
+          {/* Change password */}
           <Route path='/change-password' element={
               <ProtectedRoute>
                 <ChangePassword />

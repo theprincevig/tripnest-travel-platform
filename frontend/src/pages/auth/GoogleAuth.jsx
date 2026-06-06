@@ -1,7 +1,7 @@
 import { GoogleLogin } from '@react-oauth/google';
 import { useLocation, useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import { useAuthStore } from '../../stores/useAuthStore';
+import toast from 'react-hot-toast';
 
 export default function GoogleAuth() {
     const { googleLogin } = useAuthStore();

@@ -2,6 +2,7 @@ import { KeyRound, Loader, Loader2, User } from "lucide-react";
 import { useAuthStore } from "../../stores/useAuthStore";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { hasErrors, validateLogin } from "../../errors/newErrors";
+import { initialLoginData } from "../../constants/initialData";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -11,11 +12,10 @@ import AuthHeader from "../../components/AuthHeader";
 import GoogleAuth from "./GoogleAuth";
 
 export default function Login() {
-    const initState = { username: "", password: "" };
     const { isLoggingIn, login } = useAuthStore();
 
-    const [formData, setFormData] = useState(initState);
-    const [errors, setErrors] = useState(initState);
+    const [formData, setFormData] = useState(initialLoginData);
+    const [errors, setErrors] = useState(initialLoginData);
 
     const navigate = useNavigate();
     const location = useLocation();

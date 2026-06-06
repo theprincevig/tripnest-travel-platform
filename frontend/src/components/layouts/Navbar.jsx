@@ -46,7 +46,7 @@ export default function Navbar({ isSearchVisible }) {
     }
 
     return (
-        <div className="sticky top-0 w-full flex flex-col items-center border-b-2 border-zinc-200 bg-zinc-200/40 backdrop-blur-md p-2 z-1000">
+        <div className="sticky top-0 w-full flex flex-col items-center border-b-2 border-zinc-200/50 bg-zinc-100/30 backdrop-blur-md p-2 z-1000">
             <div className="w-[95%] h-20 flex items-center justify-between">
                 {/* logo section */}
                 <div className="flex items-center">
@@ -78,23 +78,23 @@ export default function Navbar({ isSearchVisible }) {
                                 handleHostButton();
                             }
                         }}
-                        className="px-3 py-2 rounded-full text-sm opacity-80 hover:bg-zinc-200/60 transition-all cursor-pointer"
+                        className="px-3 py-2 rounded-full text-sm opacity-80 hover:bg-zinc-200/40 transition-all cursor-pointer"
                     >
                         {HOST ? "My Listings" : "Become a host"}
                     </button>
 
                     <div 
                         onClick={() => setOpenModal(true)}
-                        className="rounded-full p-3 bg-zinc-200/60 hover:bg-zinc-200 transition-all duration-200 cursor-pointer"
+                        className="rounded-full p-3 bg-zinc-200/40 hover:bg-zinc-200/60 transition-all duration-200 cursor-pointer"
                     >
-                        <Globe size={18} />
+                        <Globe size={20} />
                     </div>
 
                     <div 
                         onClick={() => setUserModal(prev => !prev)}
-                        className="rounded-full p-3 bg-zinc-200/60 hover:bg-zinc-200 transition-all duration-200 cursor-pointer"
+                        className="rounded-full p-3 bg-zinc-200/40 hover:bg-zinc-200/60 transition-all duration-200 cursor-pointer"
                     >
-                        <Menu size={18} />
+                        <Menu size={20} />
                     </div>
                 </div>
             </div>

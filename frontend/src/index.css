@@ -14,17 +14,21 @@
     }
 
     body {
-        background: #fcfbfc;
+        background: white;
         overflow-x: hidden;
     }
 }
 
 .primary-btn {
-    @apply w-full max-w-50 py-2 mt-8 rounded-xl bg-primary text-white font-[Ramabhadra] shadow-xl inset-shadow-sm hover:bg-blue-600 transition-all active:scale-95 cursor-pointer disabled:bg-gray-400;
+    @apply w-full max-w-40 py-2 rounded-xl bg-primary text-white font-[Ramabhadra] shadow-xl hover:bg-blue-600 transition-all active:scale-95 cursor-pointer disabled:bg-gray-400;
 }
 
 .error-btn {
-  @apply w-full max-w-50 py-2 mt-8 rounded-xl bg-red-500 text-white font-[Ramabhadra] shadow-xl inset-shadow-sm hover:bg-red-600 transition-all active:scale-95 cursor-pointer disabled:bg-gray-400;
+  @apply w-full max-w-40 py-2 rounded-xl bg-red-500 text-white font-[Ramabhadra] shadow-xl hover:bg-red-600 transition-all active:scale-95 cursor-pointer disabled:bg-gray-400;
+}
+
+.default-btn {
+  @apply w-full max-w-40 py-2 rounded-xl bg-zinc-200 font-[Ramabhadra] hover:bg-zinc-300 transition-all active:scale-95 cursor-pointer;
 }
 
 /* -------------------------------------------------- */

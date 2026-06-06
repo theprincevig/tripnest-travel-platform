@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import ProfileCardModal from "../modals/ProfileCardModal";
+import UserModal from "../modals/UserModal";
 import UserImageCard from "../cards/UserImageCard";
 
 export default function ListingHost({ owner }) {
@@ -16,13 +16,14 @@ export default function ListingHost({ owner }) {
                     <UserImageCard 
                         width="w-12"
                         iconSize={16}
+                        role={owner?.role}
                         picture={owner?.picture}
                     />
                     <p className="text-lg hover:underline transition-all">hosted by {owner?.username}</p>
                 </div>
             </button>
 
-            <ProfileCardModal 
+            <UserModal 
                 user={owner}
                 isOpen={hostModal}
                 onClose={() => setHostModal(false)}

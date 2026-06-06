@@ -37,7 +37,6 @@ export default function MyListings() {
                                     key={listing._id}
                                     listing={listing}
                                     userCurrency={activeCurrency.code}
-                                    onListing={() => navigate(`/listings/${listing._id}`)}
                                 />
                             ))}
                         </div>

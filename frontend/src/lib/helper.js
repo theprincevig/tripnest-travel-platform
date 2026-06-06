@@ -1,33 +1,37 @@
-import { useAuthStore } from "../stores/useAuthStore";
-import { useListingStore } from "../stores/useListingStore";
-import { useReviewStore } from "../stores/useReviewStore";
+export const getTimeAgo = (date, withAgo = true) => {
+    if (!date) return "";
 
-export const getStats = () => {
-    const { authUser } = useAuthStore();
-    const { allListings } = useListingStore();
-    const { reviews } = useReviewStore();
+    const now = new Date();
+    const createdAt = new Date(date);
 
-    const hostListings = allListings.filter(
-        (listing) => listing.owner?._id === authUser?._id
-    );
+    const seconds = Math.floor((now - createdAt) / 1000);
 
-    const hostReviews = reviews.filter(
-        (review) => review.owner?._id === authUser?._id
-    );
+    const intervals = [
+        { label: "year", seconds: "31536000" },
+        { label: "month", seconds: "2592000" },
+        { label: "week", seconds: "604800" },
+        { label: "day", seconds: "86400" },
+        { label: "hr", seconds: "3600" },
+        { label: "min", seconds: "60" }
+    ];
 
-    const totalListings = hostListings.length;
-    const totalReviews = hostReviews.length;
+    for (const interval of intervals) {
+        const count = Math.floor(
+            seconds / interval.seconds
+        );
 
-    const averageRating = totalReviews > 0 ? (
-        hostReviews.reduce(
-            (acc, review) => acc + review.rating, 0
-        ) / totalReviews
-    ).toFixed(1) 
-    : "0.0";
+        if (count >= 1) {
+            const plural = 
+                count > 1 && 
+                interval.label !== "hr" && 
+                interval.label !== "min" 
+                    ? "s"
+                    : "";
 
-    return {
-        totalListings,
-        totalReviews,
-        averageRating
-    };
+            return `${count} ${interval.label}${plural}${
+                withAgo ? " ago" : ""
+            }`;
+        }
+    }
+    return withAgo ? "now" : "recently joined";
 };

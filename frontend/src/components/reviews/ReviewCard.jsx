@@ -1,0 +1,50 @@
+import { Dot } from "lucide-react";
+import { getTimeAgo } from "../../lib/helper";
+import { Link } from 'react-router-dom';
+import UserImageCard from "../cards/UserImageCard";
+import RatingStar from "../RatingStar";
+
+export default function ReviewCard({ review }) {
+    return (
+        <div 
+            className="flex-1 h-50 space-y-4"
+        >
+            <Link 
+                to={`/users/${review.author.username}`}
+                className="flex items-center gap-3"
+            >
+                <UserImageCard 
+                    width="w-12"
+                    iconSize={12}
+                    role={review.author.role}
+                    picture={review.author.picture}
+                />
+                
+                <div className="flex flex-col items-start justify-center">
+                    <p className="text-lg">{review.author.username}</p>
+                    <span className="text-xs text-zinc-500">
+                        {getTimeAgo(review.author.createdAt, false)} on tripnest
+                    </span>
+                </div>
+            </Link>
+
+            <div className="flex flex-col justify-center gap-2">
+                <div className="flex items-center gap-1">
+                    <RatingStar 
+                        maxWidth={70}
+                        value={review?.rating}
+                        readOnly={true}
+                    />
+                    <Dot size={10} className="text-zinc-400" />
+                    <span className="text-sm text-zinc-500">
+                        {getTimeAgo(review.createdAt)}
+                    </span>
+                </div>
+
+                <p className="">
+                    {review.comment}
+                </p>
+            </div>
+        </div>
+    );
+}

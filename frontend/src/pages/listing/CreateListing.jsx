@@ -3,6 +3,7 @@ import { useListingStore } from "../../stores/useListingStore";
 import { useNavigate } from "react-router-dom";
 import { CloudUpload, Loader } from "lucide-react";
 import { hasErrors, validateListing } from "../../errors/newErrors";
+import { initialListingData } from "../../constants/initialData";
 import toast from "react-hot-toast";
 
 import ListingInput from "../../components/inputs/ListingInput";
@@ -11,19 +12,10 @@ import ListingCategory from "../../components/inputs/ListingCategory";
 import ListingImage from "../../components/inputs/ListingImage";
 
 export default function CreateListing() {
-    const initState = {
-        title: "",
-        description: "",
-        price: "",
-        location: "",
-        country: "",
-        category: ""
-    };
-
     const { createListing, createListingLoading } = useListingStore();
 
-    const [formData, setFormData] = useState(initState);
-    const [errors, setErrors] = useState(initState);
+    const [formData, setFormData] = useState(initialListingData);
+    const [errors, setErrors] = useState(initialListingData);
 
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState("");
@@ -75,7 +67,7 @@ export default function CreateListing() {
         try {
             await createListing({ ...formData, image});
 
-            setFormData(initState);
+            setFormData(initialListingData);
             setImage(null);
             setPreview("");
 

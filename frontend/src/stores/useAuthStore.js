@@ -17,11 +17,13 @@ const normalizeUser = (user) => {
 export const useAuthStore = create(
     persist((set, get) => ({
         authUser: null,
+        profileUser: null,
 
         isCheckingAuth: false,
         isSigningUp: false,
         isLoggingIn: false,
         isUpdatingProfile: false,
+        profileLoading: false,
         isResettingPassword: false,
 
         // =========== HELPER ============
@@ -149,15 +151,20 @@ export const useAuthStore = create(
         },
 
         viewProfile: async (username) => {
+            set({ profileLoading: true });
             try {
                 const res = await axiosInstance.get(API_PATHS.PROFILE.VIEW_PROFILE(username));
-                const { user } = res.data;
+                const user = normalizeUser(res.data.user);
 
-                return normalizeUser(user);
+                set({ profileUser: user });
+                return user;
                 
             } catch (error) {
                 console.error(`View profile error: ${error}`);
                 throw error.response?.data || error;
+                
+            } finally {
+                set({ profileLoading: false });
             }
         },
 
@@ -165,7 +172,18 @@ export const useAuthStore = create(
             set({ isUpdatingProfile: true });
             try {
                 const formData = new FormData();
-                if (data.username) formData.append("username", data.username);
+                formData.append(
+                    "profileData",
+                    JSON.stringify({
+                        username: data.username,
+                        fullName: data.fullName,
+                        dob: data.dob,
+                        phone: data.phone,
+                        gender: data.gender,
+                        address: data.address,
+                        hostProfile: data.hostProfile
+                    })
+                );
                 if (data.picture) formData.append("picture", data.picture);
 
                 const res = await axiosInstance.patch(

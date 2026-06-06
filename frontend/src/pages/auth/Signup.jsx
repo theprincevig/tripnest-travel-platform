@@ -3,6 +3,7 @@ import { useAuthStore } from "../../stores/useAuthStore";
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { hasErrors, validateSignup } from "../../errors/newErrors";
+import { initialSignupData } from "../../constants/initialData";
 import toast from "react-hot-toast";
 
 import AuthHeader from "../../components/AuthHeader";
@@ -12,15 +13,9 @@ import PasswordStrengthMeter from "../../components/inputs/passwordStrengthMeter
 import GoogleAuth from "./GoogleAuth";
 
 export default function Signup() {
-    const initState = {
-        username: "",
-        email: "",
-        password: ""
-    }
-
     const { isSigningUp, signup } = useAuthStore();
-    const [formData, setFormData] = useState(initState);
-    const [errors, setErrors] = useState(initState);
+    const [formData, setFormData] = useState(initialSignupData);
+    const [errors, setErrors] = useState(initialSignupData);
 
     const navigate = useNavigate();
     const location = useLocation();

@@ -6,9 +6,10 @@ import { API_PATHS } from '../utils/apiPaths';
 export const useListingStore = create(
     persist((set, get) => ({
         // States
-        allListings: [],
-        myListings: [],
-        singleListing: null,
+        allListings: [],    // Fetch all listings in dashboard
+        myListings: [], // Fetch only user's own created listings
+        userListings: [],   // Fetch listings who owes it
+        singleListing: null,    // Fetch single listing by using listing id
 
         // Loading states
         listingsLoading: false,
@@ -31,6 +32,7 @@ export const useListingStore = create(
         },
 
         clearSingleListing: () => set({ singleListing: null }),
+        clearUserListings: () => set({ userListings: [] }),
 
         getAllListings: async (customFilters = {}) => {
             set({ listingsLoading: true, error: null });
@@ -97,6 +99,37 @@ export const useListingStore = create(
 
             } catch (error) {
                 console.error(`Get My Listings error: ${error}`);
+                set({ myListings: [], error: error.message });
+                throw error.response?.data || error;
+
+            } finally {
+                set({ listingsLoading: false });
+            }
+        },
+
+        getUserListings: async (ownerId) => {
+            set({ listingsLoading: true, error: null });
+            try {
+                const res = await axiosInstance.get(API_PATHS.LISTINGS.GET_ALL, {
+                    params: { owner: ownerId }
+                });
+
+                const {
+                    listings,
+                    totalListings,
+                    currentPage,
+                    totalPages
+                } = res.data;
+
+                set({
+                    userListings: listings || [],
+                    totalListings,
+                    currentPage,
+                    totalPages
+                });
+
+            } catch (error) {
+                console.error(`Get User Listings error: ${error}`);
                 set({ myListings: [], error: error.message });
                 throw error.response?.data || error;
 

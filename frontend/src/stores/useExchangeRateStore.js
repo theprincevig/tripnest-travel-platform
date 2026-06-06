@@ -29,6 +29,7 @@ export const useExchangeRateStore = create((set, get) => ({
 
         } catch (error) {
             console.error("Fetch exchange rates error:", error);
+            throw error.response?.data || error;
 
         } finally {
             set({ isFetchingRates: false });

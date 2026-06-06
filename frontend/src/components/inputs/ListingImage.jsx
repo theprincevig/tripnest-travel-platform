@@ -1,6 +1,14 @@
 import { CloudUpload, Files } from "lucide-react";
 
-export default function ListingImage({ label, image, setImage, preview, setPreview, error, onUpload }) {
+export default function ListingImage({ 
+    label,
+    image,
+    setImage,
+    preview,
+    setPreview,
+    error,
+    onUpload 
+}) {
     return (
         <div className="relative w-full text-left mb-5">
             <label className="text-sm text-slate-800 ml-2">{ label }</label>
@@ -37,7 +45,7 @@ export default function ListingImage({ label, image, setImage, preview, setPrevi
                     >
                         <CloudUpload size={40} />
                         <span className="text-sm">Click to upload</span>
-                        <span className="text-xs text-zinc-400">JPG, JPEG, PNG up to 5MB</span>
+                        <span className="text-xs text-zinc-400">JPG, JPEG, PNG, WEBP up to 5MB</span>
                     </label>
                 )}
 

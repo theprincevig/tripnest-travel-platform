@@ -4,13 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { LoaderCircle, Star } from "lucide-react";
 import { useActiveCurrency } from "../../hooks/useActiveCurrency";
 import { useAuthStore } from "../../stores/useAuthStore";
+import { useHostStore } from "../../stores/useHostStore";
 import toast from "react-hot-toast";
-import { getStats } from "../../lib/helper";
 
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import ListingHost from "../../components/listings/ListingHost";
 import ListingReserve from "../../components/listings/ListingReserve";
 import AlertModal from "../../components/modals/AlertModal";
+import AboutReviews from "../../components/reviews/AboutReviews";
 
 export default function Listing() {
     const { 
@@ -21,10 +22,16 @@ export default function Listing() {
         deleteListingLoading,
         deleteListing
     } = useListingStore();
-    const { authUser } = useAuthStore();
 
+    const { authUser } = useAuthStore();
+    const { hostStats, getHostStats } = useHostStore();
     const activeCurrency = useActiveCurrency();
-    const stats = getStats();
+
+    const stats = hostStats[singleListing?.owner?._id] || {
+        totalListings: 0,
+        totalReviews: 0,
+        averageRating: "0.0"
+    };
 
     const isOwner = singleListing?.owner?._id === authUser?._id;
 
@@ -39,6 +46,12 @@ export default function Listing() {
 
         return () => clearSingleListing();
     }, [listingId, getListing, clearSingleListing]);
+
+    useEffect(() => {
+        if (!singleListing?.owner?._id) return;
+
+        getHostStats(singleListing.owner._id);
+    }, [singleListing?.owner?._id, getHostStats]);
 
     const handleReserve = () => {
         setReserved(false);
@@ -59,9 +72,9 @@ export default function Listing() {
 
     return (
         <DashboardLayout>
-            <div className="w-full flex justify-center">
+            <div className="flex justify-center">
                 {singleListingLoading ? (
-                    <div className="w-full flex items-center justify-center">
+                    <div className="flex items-center justify-center">
                         <LoaderCircle size={35} className="animate-spin" />
                     </div>
                 ) : (
@@ -79,7 +92,7 @@ export default function Listing() {
                                 <p className="text-xl">{singleListing?.location} - {singleListing?.country}</p>
                                 <p className="text-lg font-[Ramabhadra] flex items-center gap-1">
                                     <Star size={12} />
-                                    {stats.averageRating}
+                                    {stats.averageRating || "0.0"}
                                 </p>
                             </div>
 
@@ -96,6 +109,15 @@ export default function Listing() {
                         <div className="w-full border-t border-zinc-300 text-center mt-8" />
 
                         <ListingHost owner={singleListing?.owner} />
+
+                        <div className="w-full border-t border-zinc-300 text-center mt-8" />
+
+                        <AboutReviews 
+                            user={authUser}
+                            listing={singleListing}
+                            averageRating={stats.averageRating || "0.0"}
+                            totalReviews={stats.totalReviews || 0}
+                        />
 
                         <div className="w-full border-t border-zinc-300 text-center mt-8" />
 
