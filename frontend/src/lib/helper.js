@@ -35,3 +35,65 @@ export const getTimeAgo = (date, withAgo = true) => {
     }
     return withAgo ? "now" : "recently joined";
 };
+
+// Create helper function for listing's stats
+export const listingStats = (listing) => {
+    const reviews = listing?.reviews ?? [];
+    const totalReviews = reviews.length;
+
+    const averageRating = 
+        totalReviews === 0 
+            ? "0.0" 
+            : (
+                reviews.reduce(
+                    (sum, review) => sum + review.rating, 0) / 
+                    totalReviews
+            ).toFixed(1);
+
+    return {
+        totalReviews,
+        averageRating
+    };
+};
+
+export const getReservationStatus = (status, checkIn, checkOut) => {
+    if (status === "cancelled") {
+        return {
+            label: "Cancelled",
+            className: "text-red-500",
+        };
+    }
+
+    if (status === "completed") {
+        return {
+            label: "Completed",
+            className: "text-zinc-600",
+        };
+    }
+
+    // Status === "comfirmed"
+    const now = new Date();
+    const start = new Date(checkIn);
+    const end = new Date(checkOut);
+
+    if (now < start) {
+        return {
+            label: "Upcoming",
+            className: "text-primary"
+        };
+    }
+
+    if (now >= start && now <= end) {
+        return {
+            label: "Ongoing",
+            className: "text-green-500"
+        };
+    }
+
+    // Safety fallback in case a past reservation
+    // hasn't yet been marked as completed
+    return {
+        label: "Completed",
+        className: "text-zinc-600"
+    };
+};

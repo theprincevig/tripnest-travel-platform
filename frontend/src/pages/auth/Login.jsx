@@ -37,7 +37,7 @@ export default function Login() {
 
         try {
             await login(formData);
-            setFormData(initState);
+            setFormData(initialLoginData);
             navigate(from, { replace: true });
             toast.success("Welcome back to the tripnest!");
 
@@ -85,7 +85,7 @@ export default function Login() {
 
                             <button 
                                 type="submit"
-                                className="w-[50%] py-2 mt-8 rounded-xl bg-primary text-white font-[Ramabhadra] shadow-xl inset-shadow-sm hover:bg-blue-600 transition-all active:scale-95 cursor-pointer disabled:bg-gray-400"
+                                className="primary-btn mt-8"
                                 disabled={isLoggingIn}
                             >
                                 { isLoggingIn ? <Loader size={20} className="animate-spin mx-auto" /> : "Login" }

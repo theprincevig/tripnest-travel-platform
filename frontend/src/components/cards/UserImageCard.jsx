@@ -1,12 +1,12 @@
 import { HatGlasses } from "lucide-react";
 
-export default function UserImageCard({ width, iconSize, role, picture }) {
+export default function UserImageCard({ style, iconSize, role, picture }) {
     return (
         <div className="relative">
             <img 
                 src={picture || "/user/avatar.png"} 
                 alt="user" 
-                className={`${width} rounded-full object-cover cursor-pointer`}
+                className={`${style} rounded-full object-cover cursor-pointer`}
             />
             
             {role === "host" && 

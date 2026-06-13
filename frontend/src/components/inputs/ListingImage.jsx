@@ -2,10 +2,7 @@ import { CloudUpload, Files } from "lucide-react";
 
 export default function ListingImage({ 
     label,
-    image,
-    setImage,
     preview,
-    setPreview,
     error,
     onUpload 
 }) {

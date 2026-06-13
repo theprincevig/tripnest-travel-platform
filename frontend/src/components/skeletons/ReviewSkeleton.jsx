@@ -2,7 +2,7 @@ export default function ReviewSkeleton({ reviews = [] }) {
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
             {reviews.map((_, idx) => (
-                <li 
+                <div 
                     key={idx}
                     className="flex-1 h-50 space-y-2 animate-pulse"
                 >
@@ -16,7 +16,7 @@ export default function ReviewSkeleton({ reviews = [] }) {
                     </div>
 
                     <div className="w-[80%] h-30 ml-1 shimmer" />
-                </li>
+                </div>
             ))}
         </div>
     );

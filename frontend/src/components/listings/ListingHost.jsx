@@ -14,7 +14,7 @@ export default function ListingHost({ owner }) {
                     className="flex items-center gap-2"
                 >
                     <UserImageCard 
-                        width="w-12"
+                        style="w-12 h-12"
                         iconSize={16}
                         role={owner?.role}
                         picture={owner?.picture}

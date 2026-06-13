@@ -60,3 +60,10 @@ export const initialProfileErrors = {
         about: "",
     }
 };
+
+// Cancellation policy for listing's reservation
+export const initialCancellationData = {
+    hasCancellationFee: false,
+    cancellationFee: 0,
+    refundAmount: 0
+};

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../../stores/useAuthStore";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { hasErrors, validateProfile } from "../../errors/newErrors";
 import { initialProfileData, initialProfileErrors } from "../../constants/initialData";
 import { Loader } from "lucide-react";
@@ -152,65 +152,64 @@ export default function UpdateProfile() {
     return (
         <DashboardLayout>
             <div className="flex items-center justify-center">
-                {isUpdatingProfile ? (
-                    <Loader size={25} className="animate-spin" />
-                ) : (
-                    <form 
-                        onSubmit={handleSubmit}
-                        className="w-full max-w-7xl space-y-6 p-4"
-                    >
-                        <div className="flex flex-col items-center justify-center gap-4 p-2">
-                            <ProfilePictureUploader 
-                                preview={preview}
-                                loading={isUpdatingProfile}
-                                onChangePicture={handleChangePicture}
-                                onRemovePicture={handleRemovePicture}
-                            />
-
-                            <UsernameEditor 
-                                data={profileData}
-                                error={errors.username}
-                                handleChange={handleChange}
-                            />
-
-                            <ProfileAboutSection 
-                                user={authUser}
-                                data={profileData}
-                                error={errors.hostProfile?.about}
-                                handleNestedChange={handleNestedChange}
-                            />
-                        </div>
-
-                        <div className="w-full border-t border-zinc-300 text-center mt-8" />
-
-                        <ProfileCustomization 
-                            user={authUser}
-                            data={profileData}
-                            errors={errors}
-                            handleChange={handleChange}
-                            handleNestedChange={handleNestedChange}
-                            handleLanguageChange={handleLanguageChange}
+                <form 
+                    onSubmit={handleSubmit}
+                    className="w-full max-w-7xl space-y-6 p-4"
+                >
+                    <div className="flex flex-col items-center justify-center gap-4 p-2">
+                        <ProfilePictureUploader 
+                            preview={preview}
+                            loading={isUpdatingProfile}
+                            onChangePicture={handleChangePicture}
+                            onRemovePicture={handleRemovePicture}
                         />
 
-                        <div className="flex items-center justify-end gap-5">
-                            <button 
-                                type="submit"
-                                onClick={() => navigate(`/users/${authUser?.username}`)}
-                                className="default-btn"
-                            >
-                                Back
-                            </button>
+                        <UsernameEditor 
+                            data={profileData}
+                            error={errors.username}
+                            handleChange={handleChange}
+                        />
 
-                            <button 
-                                type="submit"
-                                className="primary-btn"
-                                disabled={isUpdatingProfile}
-                            >
-                                {isUpdatingProfile ? <Loader size={22} className="animate-spin" /> : "Confirm"}
-                            </button>
-                        </div>
-                    </form>
-                )}
+                        <ProfileAboutSection 
+                            user={authUser}
+                            data={profileData}
+                            error={errors.hostProfile?.about}
+                            handleNestedChange={handleNestedChange}
+                        />
+                    </div>
+
+                    <div className="w-full border-t border-zinc-300 text-center mt-8" />
+
+                    <ProfileCustomization 
+                        user={authUser}
+                        data={profileData}
+                        errors={errors}
+                        handleChange={handleChange}
+                        handleNestedChange={handleNestedChange}
+                        handleLanguageChange={handleLanguageChange}
+                    />
+
+                    <div className="flex items-center justify-end gap-5">
+                        <Link 
+                            to={`/users/${authUser?.username}`}
+                            type="submit"
+                            className="default-btn"
+                        >
+                            Back
+                        </Link>
+
+                        <button 
+                            type="submit"
+                            className="primary-btn"
+                            disabled={isUpdatingProfile}
+                        >
+                            {isUpdatingProfile 
+                                ? <Loader size={22} className="animate-spin mx-auto" /> 
+                                : "Confirm"
+                            }
+                        </button>
+                    </div>
+                </form>
             </div>
         </DashboardLayout>
     );

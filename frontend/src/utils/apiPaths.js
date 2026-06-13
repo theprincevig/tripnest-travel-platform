@@ -21,6 +21,11 @@ export const API_PATHS = {
         UPDATE: (id) => `/api/listings/${id}`,
         DELETE: (id) => `/api/listings/${id}`
     },
+    RESERVATION: {
+        GET: "/api/reservations/me",
+        CREATE: (listingId) => `/api/listings/${listingId}/reserve`,
+        CANCEL: (listingId, reserveId) => `/api/listings/${listingId}/reserve/${reserveId}/cancel`,
+    },
     REVIEWS: {
         GET_ALL: (listingId) => `/api/listings/${listingId}/reviews`,
         CREATE: (listingId) => `/api/listings/${listingId}/reviews`,

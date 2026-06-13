@@ -1,7 +1,17 @@
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function AlertModal({ isOpen, content, onCancel, onConfirm, loading }) {
+export default function AlertModal({ 
+    isOpen,
+    content,
+    onCancel,
+    onConfirm,
+    loading,
+
+    hasCancellationFee = false,
+    cancellationFee = 0,
+    refundAmount = 0,
+}) {
     const [showModal, setShowModal] = useState(isOpen);
 
     useEffect(() => {
@@ -31,16 +41,42 @@ export default function AlertModal({ isOpen, content, onCancel, onConfirm, loadi
             <div 
                 onClick={(e) => e.stopPropagation()}
                 className={`
-                    w-full max-w-xs flex flex-col justify-center items-center 
+                    w-full max-w-sm flex flex-col justify-center items-center 
                     bg-white rounded-3xl shadow-2xl inset-shadow-2xs 
-                    py-6 px-4 space-y-2 
+                    py-6 px-4 space-y-4 
                     ${isOpen ? "open-alert" : "close-alert"}
                 `}
             >
                 <div className="flex flex-col items-center justify-center">
-                    <h3 className="text-2xl font-[Ramabhadra] ">Are You Sure?!</h3>
-                    <p className="text-sm text-zinc-700">{content}</p>
+                    <h3 className="text-2xl font-[Ramabhadra] ">
+                        {hasCancellationFee 
+                            ? "Cancellation Fee Applies" 
+                            : "Are You Sure?"
+                        }
+                    </h3>
+                    <p className="text-sm text-zinc-700">
+                        {content}
+                    </p>
+
+                    {hasCancellationFee && (
+                        <div className="w-full mt-3 rounded-xl bg-zinc-100 text-sm p-3">
+                            <div className="flex justify-between">
+                                <span>Cancellation Fee</span>
+                                <span className="font-semibold">
+                                    ₹{cancellationFee}
+                                </span>
+                            </div>
+
+                            <div className="flex justify-between">
+                                <span>Refund Amount</span>
+                                <span className="font-semibold text-green-600">
+                                    ₹{refundAmount}
+                                </span>
+                            </div>
+                        </div> 
+                    )}
                 </div>
+                
                 <div className="w-full flex items-center justify-between gap-4">
                     <button 
                         onClick={onConfirm}
@@ -48,9 +84,7 @@ export default function AlertModal({ isOpen, content, onCancel, onConfirm, loadi
                         disabled={loading}
                     >
                         {loading 
-                            ? <span className="inline-block">
-                                <Loader size={18} className="animate-spin" />
-                            </span> 
+                            ? <Loader size={18} className="animate-spin mx-auto" />
                             : "Confirm"
                         }
                     </button>

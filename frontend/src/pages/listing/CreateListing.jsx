@@ -14,7 +14,7 @@ import ListingImage from "../../components/inputs/ListingImage";
 export default function CreateListing() {
     const { createListing, createListingLoading } = useListingStore();
 
-    const [formData, setFormData] = useState(initialListingData);
+    const [listingData, setListingData] = useState(initialListingData);
     const [errors, setErrors] = useState(initialListingData);
 
     const [image, setImage] = useState(null);
@@ -54,20 +54,20 @@ export default function CreateListing() {
             ? e.target.value === "" ? "" : Number(e.target.value)
             : e.target.value;
 
-        setFormData(prev => ({ ...prev, [field]: value }));
+        setListingData(prev => ({ ...prev, [field]: value }));
         setErrors(prev => ({ ...prev, [field]: "" }));
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const newErrors = validateListing({ ...formData, image });
+        const newErrors = validateListing({ ...listingData, image });
         if (hasErrors(newErrors)) return setErrors(newErrors);
 
         try {
-            await createListing({ ...formData, image});
+            await createListing({ ...listingData, image});
 
-            setFormData(initialListingData);
+            setListingData(initialListingData);
             setImage(null);
             setPreview("");
 
@@ -89,7 +89,7 @@ export default function CreateListing() {
                     <ListingInput 
                         label="Title" 
                         type="text" 
-                        value={formData.title}
+                        value={listingData.title}
                         placeholder="Give your title" 
                         onChange={handleChange("title")}
                         error={errors.title}
@@ -98,7 +98,7 @@ export default function CreateListing() {
                     <ListingInput 
                         label="Description" 
                         type="text" 
-                        value={formData.description}
+                        value={listingData.description}
                         placeholder="Enter meaning-full description" 
                         onChange={handleChange("description")}
                         error={errors.description}
@@ -106,10 +106,7 @@ export default function CreateListing() {
 
                     <ListingImage 
                         label="Image" 
-                        image={image} 
-                        setImage={setImage} 
                         preview={preview} 
-                        setPreview={setPreview} 
                         error={errors.image} 
                         onUpload={handleImageUpload}
                     />
@@ -117,7 +114,7 @@ export default function CreateListing() {
                     <ListingInput 
                         label="Price" 
                         type="number" 
-                        value={formData.price}
+                        value={listingData.price}
                         placeholder="Set your price" 
                         onChange={handleChange("price")}
                         error={errors.price}
@@ -127,7 +124,7 @@ export default function CreateListing() {
                         <ListingInput 
                             label="Location" 
                             type="text" 
-                            value={formData.location}
+                            value={listingData.location}
                             placeholder="Your location" 
                             onChange={handleChange("location")}
                             error={errors.location}
@@ -136,7 +133,7 @@ export default function CreateListing() {
                         <ListingInput 
                             label="Country" 
                             type="text" 
-                            value={formData.country}
+                            value={listingData.country}
                             placeholder="Your country" 
                             onChange={handleChange("country")}
                             error={errors.country}
@@ -145,8 +142,8 @@ export default function CreateListing() {
 
                     <ListingCategory 
                         label="Category" 
-                        value={formData.category} 
-                        onChange={(value) => setFormData(prev => ({ ...prev, category: value }))}
+                        value={listingData.category} 
+                        onChange={(value) => setListingData(prev => ({ ...prev, category: value }))}
                         error={errors.category}
                     />
 

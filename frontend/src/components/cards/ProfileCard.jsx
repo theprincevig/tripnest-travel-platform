@@ -29,7 +29,7 @@ export default function ProfileCard({ user }) {
         >
             <div className="flex-1 flex flex-col items-center justify-center gap-3 py-4">
                 <UserImageCard 
-                    width="w-20"
+                    style="w-20 h-20"
                     iconSize={18}
                     role={user?.role}
                     picture={user?.picture}

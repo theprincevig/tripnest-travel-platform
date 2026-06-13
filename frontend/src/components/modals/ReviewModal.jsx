@@ -11,7 +11,13 @@ import UserImageCard from "../cards/UserImageCard";
 import TextArea from "../inputs/TextArea";
 import RatingStar from "../RatingStar";
 
-export default function ReviewModal({ isOpen, onClose, user, listing, averageRating }) {
+export default function ReviewModal({ 
+    isOpen,
+    onClose,
+    user,
+    listing,
+    averageRating 
+}) {
     const initData = {
         rating: 0.0,
         comment: ""
@@ -105,13 +111,13 @@ export default function ReviewModal({ isOpen, onClose, user, listing, averageRat
 
                     <div className="flex justify-start items-center gap-3 px-3 py-2 mb-2">
                         <UserImageCard 
-                            width="w-12"
+                            style="w-12 h-12"
                             iconSize={15}
                             picture={user?.picture}
                         />
 
                         <div className="flex flex-col items-start justify-center">
-                            <p className="text-lg">{user?.username}</p>
+                            <p className="text-lg">{user?.fullName?.firstName || user?.username}</p>
                             <p className="text-xs text-zinc-500">
                                 {getTimeAgo(user?.createdAt, false)} on tripnest
                             </p>
@@ -143,7 +149,10 @@ export default function ReviewModal({ isOpen, onClose, user, listing, averageRat
                             className="primary-btn"
                             disabled={createReviewLoading}
                         >
-                            {createReviewLoading ? <Loader size={16} className="animate-spin" /> : "Submit"}
+                            {createReviewLoading 
+                                ? <Loader size={18} className="animate-spin mx-auto" /> 
+                                : "Submit"
+                            }
                         </button>
                     </form>
                 </div>

@@ -28,7 +28,7 @@
 }
 
 .default-btn {
-  @apply w-full max-w-40 py-2 rounded-xl bg-zinc-200 font-[Ramabhadra] hover:bg-zinc-300 transition-all active:scale-95 cursor-pointer;
+  @apply w-full max-w-40 py-2 rounded-xl bg-zinc-200 text-center font-[Ramabhadra] hover:bg-zinc-300 transition-all active:scale-95 cursor-pointer;
 }
 
 /* -------------------------------------------------- */

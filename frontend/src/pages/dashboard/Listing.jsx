@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
-import { useListingStore } from "../../stores/useListingStore";
 import { useNavigate, useParams } from "react-router-dom";
 import { LoaderCircle, Star } from "lucide-react";
-import { useActiveCurrency } from "../../hooks/useActiveCurrency";
-import { useAuthStore } from "../../stores/useAuthStore";
-import { useHostStore } from "../../stores/useHostStore";
 import toast from "react-hot-toast";
+
+import { useListingStore } from "../../stores/useListingStore";
+import { useReservationStore } from "../../stores/useReservationStore";
+import { useAuthStore } from "../../stores/useAuthStore";
+import { useActiveCurrency } from "../../hooks/useActiveCurrency";
+import { initialCancellationData } from "../../constants/initialData";
+import { listingStats } from "../../lib/helper";
 
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import ListingHost from "../../components/listings/ListingHost";
 import ListingReserve from "../../components/listings/ListingReserve";
-import AlertModal from "../../components/modals/AlertModal";
 import AboutReviews from "../../components/reviews/AboutReviews";
+import AlertModal from "../../components/modals/AlertModal";
+import ListingMap from "../../components/map/ListingMap";
 
 export default function Listing() {
     const { 
@@ -22,51 +26,65 @@ export default function Listing() {
         deleteListingLoading,
         deleteListing
     } = useListingStore();
+    
+    const { 
+        getReservations,
+        cancelReservation,
+        cancelReservationLoading 
+    } = useReservationStore();
 
     const { authUser } = useAuthStore();
-    const { hostStats, getHostStats } = useHostStore();
     const activeCurrency = useActiveCurrency();
 
-    const stats = hostStats[singleListing?.owner?._id] || {
-        totalListings: 0,
-        totalReviews: 0,
-        averageRating: "0.0"
-    };
-
-    const isOwner = singleListing?.owner?._id === authUser?._id;
-
     const { listingId } = useParams();
-    const [reserved, setReserved] = useState(false);
-    const [showAlert, setShowAlert] = useState(false);
-
     const navigate = useNavigate();
+    
+    const [showAlert, setShowAlert] = useState(false);
+    const [selectedReservation, setSelectedReservation] = useState(null);
+    const [cancellationInfo, setCancellationInfo] = useState(initialCancellationData);
+
+    const stats = listingStats(singleListing);
+    const isOwner = singleListing?.owner?._id === authUser?._id;
 
     useEffect(() => {
         getListing(listingId);
 
         return () => clearSingleListing();
-    }, [listingId, getListing, clearSingleListing]);
+    }, [listingId]);
 
     useEffect(() => {
-        if (!singleListing?.owner?._id) return;
-
-        getHostStats(singleListing.owner._id);
-    }, [singleListing?.owner?._id, getHostStats]);
-
-    const handleReserve = () => {
-        setReserved(false);
-        setShowAlert(false);
-    };
+        getReservations();
+    }, []);
 
     const handleDelete = async () => {
         try {
             await deleteListing(singleListing?._id);
             navigate("/");
             toast.success("Listing deleted successfully!");
-
+            
         } catch (error) {
             console.error(error.error);
             toast.error(error.error || "Failed to delete listing");
+        }
+    };
+
+    const handleCancellation = async () => {
+        console.log(selectedReservation);
+        
+        if (!selectedReservation) return;
+        try {
+            await cancelReservation(
+                listingId,
+                selectedReservation._id
+            );
+
+            toast.success("Reservation cancelled!");
+            setShowAlert(false);
+            setSelectedReservation(null);
+
+        } catch (error) {
+            console.error(error.error);
+            toast.error(error.error || "Failed to cancel reservation");
         }
     };
 
@@ -74,9 +92,7 @@ export default function Listing() {
         <DashboardLayout>
             <div className="flex justify-center">
                 {singleListingLoading ? (
-                    <div className="flex items-center justify-center">
-                        <LoaderCircle size={35} className="animate-spin" />
-                    </div>
+                    <LoaderCircle size={35} className="animate-spin" />
                 ) : (
                     <div className="w-full max-w-5xl space-y-6">
                         <p className="text-4xl font-[Ramabhadra]">{singleListing?.title}</p>
@@ -99,10 +115,10 @@ export default function Listing() {
                             <ListingReserve 
                                 isOwner={isOwner}
                                 listing={singleListing}
-                                reserved={reserved}
-                                setReserved={setReserved}
-                                setShowModal={setShowAlert}
                                 userCurrency={activeCurrency.code}
+                                setShowModal={setShowAlert}
+                                setSelectedReservation={setSelectedReservation}
+                                setCancellationInfo={setCancellationInfo}
                             />
                         </div>
 
@@ -115,11 +131,13 @@ export default function Listing() {
                         <AboutReviews 
                             user={authUser}
                             listing={singleListing}
-                            averageRating={stats.averageRating || "0.0"}
-                            totalReviews={stats.totalReviews || 0}
+                            averageRating={stats.averageRating}
+                            totalReviews={stats.totalReviews}
                         />
 
                         <div className="w-full border-t border-zinc-300 text-center mt-8" />
+
+                        <ListingMap />
 
                     </div>
                 )}
@@ -128,11 +146,22 @@ export default function Listing() {
                     isOpen={showAlert}
                     content={isOwner
                         ? "You want to delete your listing."
-                        : "You want to cancel your reservation."
+                        : cancellationInfo.hasCancellationFee
+                        ? "Cancelling this reservation will deeply a 10% fee."
+                        : "This reservation can be cancelled free of charge."
                     }
-                    onConfirm={isOwner ? handleDelete : handleReserve}
-                    onCancel={() => setShowAlert(false)}
-                    loading={deleteListingLoading}
+                    onConfirm={isOwner ? handleDelete : handleCancellation}
+                    onCancel={() => {
+                        setShowAlert(false);
+                        setSelectedReservation(null);
+                    }}
+                    loading={isOwner
+                        ? deleteListingLoading
+                        : cancelReservationLoading
+                    }
+                    hasCancellationFee={cancellationInfo.hasCancellationFee}
+                    cancellationFee={cancellationInfo.cancellationFee}
+                    refundAmount={cancellationInfo.refundAmount}
                 />
             </div>
         </DashboardLayout>

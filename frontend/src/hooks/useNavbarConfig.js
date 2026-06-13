@@ -2,14 +2,20 @@ import { useLocation } from "react-router-dom"
 
 export const useShowSearch = () => {
     const { pathname } = useLocation();
-    const hiddenRoutes = new Set([
-        "/login", 
-        "/register", 
-        "/users/me",
-        "/users/:username",
-        "/change-password",
-        "/listings/:listingId/edit"
-    ]);
+    const hiddenRoutes = [
+        /^\/login$/,
+        /^\/register$/,
+        /^\/new$/,
+        /^\/users\/me$/,
+        /^\/users\/[^/]+$/,
+        /^\/change-password$/,
+        /^\/listings\/[^/]+$/,
+        /^\/listings\/[^/]+\/edit$/,
+    ];
     
-    return !hiddenRoutes.has(pathname);
+    const isHidden = hiddenRoutes.some((route) =>
+        route.test(pathname)
+    );
+
+    return !isHidden;
 }
