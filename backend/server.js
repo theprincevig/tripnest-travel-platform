@@ -17,6 +17,8 @@ const profileRouter = require('./routes/profile.routes.js');
 const listingRouter = require('./routes/listing.routes.js');
 const reviewRouter = require('./routes/review.routes.js');
 const exchangeRateRouter = require('./routes/exchangeRate.routes.js');
+const listingReserveRouter = require('./routes/listingReserve.routes.js');
+const reservationsRouter = require('./routes/reservations.routes.js');
 
 const app = express();
 
@@ -40,8 +42,10 @@ connectDB();
 app.use("/api/auth/", authRouter);
 app.use("/api/users", profileRouter);
 app.use("/api/listings", listingRouter);
-app.use("/api/listings/:listingId/reviews", reviewRouter);
 app.use("/api/exchange-rates", exchangeRateRouter);
+app.use("/api/reservations", reservationsRouter);
+app.use("/api/listings/:listingId/reviews", reviewRouter);
+app.use("/api/listings/:listingId/reserve", listingReserveRouter);
 
 app.all("/files{/*path}", (req, res, next) => {
   next(new AppError(404, "Page not found!"));

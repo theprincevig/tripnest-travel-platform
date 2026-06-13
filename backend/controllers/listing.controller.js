@@ -88,7 +88,7 @@ module.exports.getListing = async (req, res) => {
 
     try {
         const listing = await Listing.findById(listingId)
-            .populate("owner", "username picture role")
+            .populate("owner", "username fullName picture role")
             .populate({
                 path: "reviews",
                 populate: {
@@ -171,7 +171,9 @@ module.exports.deleteListing = async (req, res) => {
         if (!listing) return res.status(404).json({ success: false, error: "Listing not found" });
 
         await deleteListingImage(listing);
-        await listing.deleteOne();
+        
+        // This will trigger your findOneAndDelete middleware
+        await Listing.findByIdAndDelete(listingId);
 
         return res.status(200).json({
             success: true,

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Review = require('../models/review.model.js');
+const Reservation = require('../models/reservation.model.js');
 
 const listingSchema = new Schema({
     title: {
@@ -53,7 +54,8 @@ const listingSchema = new Schema({
 
 listingSchema.post("findOneAndDelete", async (doc) => {
     if (!doc) return;
-    await Review.deleteMany({ listing: doc._id });
+    await Review.deleteMany({ listing: doc._id });  // All reviews will be deleted when the listing owner deletes the listing
+    await Reservation.deleteMany({ listing: doc._id }); // All reservations will be deleted when the listing owner deletes the listing
 });
 
 module.exports = mongoose.models.Listing || mongoose.model("Listing", listingSchema);

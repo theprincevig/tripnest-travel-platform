@@ -6,7 +6,7 @@ module.exports.getReviews = async (req, res) => {
 
     try {
         const reviews = await Review.find({ listing: listingId })
-            .populate("author", "username picture role createdAt");
+            .populate("author", "username fullName picture role createdAt");
 
         return res.status(200).json({
             success: true,
@@ -45,7 +45,7 @@ module.exports.createReview = async (req, res) => {
             author: userId
         });
 
-        review = await review.populate("author", "username picture role createdAt");
+        review = await review.populate("author", "username fullName picture role createdAt");
 
         listing.reviews.push(review._id);
         await listing.save();
