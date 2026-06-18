@@ -41,6 +41,16 @@ const listingSchema = new Schema({
         type: String,
         index: true
     },
+    coordinates: {
+        lat: {
+            type: Number,
+            default: null
+        },
+        lng: {
+            type: Number,
+            default: null
+        }
+    },
     reviews: [{
         type: Schema.Types.ObjectId,
         ref: "Review"

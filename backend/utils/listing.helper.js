@@ -1,4 +1,5 @@
 const { cloudinary } = require("../configs/cloud.config");
+const { geocodeLocation } = require("../services/geocode.service");
 
 const deleteFromCloudinary = async (imageUrl) => {
     if (!imageUrl || !imageUrl.includes("res.cloudinary.com")) return;
@@ -28,8 +29,26 @@ const applyListingUpdates = async (listing, req) => {
     if (description !== undefined) listing.description = description;
     if (price !== undefined) listing.price = price;
     if (category !== undefined) listing.category = category;
+
+    // Check whether location or country changed
+    const locationChanged = 
+        (location !== undefined && location !== listing.location) ||
+        (country !== undefined && country !== listing.country);
+
     if (location !== undefined) listing.location = location;
     if (country !== undefined) listing.country = country;
+
+    // Recalculate coordinates only if needed
+    if (locationChanged) {
+        const coordinates = await geocodeLocation(
+            listing.location,
+            listing.country
+        );
+
+        if (coordinates) {
+            listing.coordinates = coordinates;
+        }
+    }
 
     if (removeImage === "true") {
         await deleteFromCloudinary(listing.image);

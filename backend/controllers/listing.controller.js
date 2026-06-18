@@ -1,4 +1,5 @@
 const Listing = require("../models/listing.model.js");
+const { geocodeLocation } = require("../services/geocode.service.js");
 const { applyListingUpdates, deleteListingImage } = require("../utils/listing.helper.js");
 
 module.exports.getAllListings = async (req, res) => {
@@ -93,7 +94,7 @@ module.exports.getListing = async (req, res) => {
                 path: "reviews",
                 populate: {
                     path: "author",
-                    select: "username"
+                    select: "username fullName"
                 }
             });
 
@@ -117,10 +118,16 @@ module.exports.createListing = async (req, res) => {
     const imageUrl = req.file ? req.file.path : "";
 
     try {
+        const coordinates = await geocodeLocation(
+            req.body.location,
+            req.body.country
+        );
+
         const newListing = new Listing({
             ...req.body,
             image: imageUrl,
-            owner: userId
+            owner: userId,
+            coordinates
         });
 
         const savedListing = await newListing.save();

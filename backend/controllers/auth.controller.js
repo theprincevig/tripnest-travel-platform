@@ -46,13 +46,13 @@ module.exports.register = async (req, res) => {
             currency: selectedCurrency
         });
 
-        GET_SAFE(user._id);
+        const safeUser = await GET_SAFE(user._id);
         generateTokenAndCookie(user._id, res);
 
         return res.status(200).json({
             success: true,
             message: "Registered successfully!",
-            user
+            user: safeUser
         });
     } catch (error) {
         console.error("Registered Error: ", error);

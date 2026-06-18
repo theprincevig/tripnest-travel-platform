@@ -18,6 +18,6 @@ module.exports.generateTokenAndCookie = (userId, res) => {
 module.exports.cookieOptions = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    sameSite: "None",
     expires: new Date(0)
 };
