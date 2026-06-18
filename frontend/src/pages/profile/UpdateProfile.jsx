@@ -189,18 +189,18 @@ export default function UpdateProfile() {
                         handleLanguageChange={handleLanguageChange}
                     />
 
-                    <div className="flex items-center justify-end gap-5">
+                    <div className="flex items-center justify-end gap-4">
                         <Link 
                             to={`/users/${authUser?.username}`}
                             type="submit"
-                            className="default-btn"
+                            className="w-full max-w-40 default-btn"
                         >
                             Back
                         </Link>
 
                         <button 
                             type="submit"
-                            className="primary-btn"
+                            className="w-full max-w-40 primary-btn"
                             disabled={isUpdatingProfile}
                         >
                             {isUpdatingProfile 

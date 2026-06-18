@@ -3,6 +3,7 @@ import { useAuthStore } from './stores/useAuthStore';
 import { Toaster } from 'react-hot-toast';
 import { useEffect } from 'react';
 import { useExchangeRateStore } from './stores/useExchangeRateStore';
+import './lib/leaflet';
 
 import ProtectedRoute from './routes/ProtectedRoute';
 import RoleRoute from './routes/RoleRoute';

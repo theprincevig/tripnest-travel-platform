@@ -4,10 +4,10 @@ import ListingCard from "../listings/ListingCard";
 export default function ProfileListings({ name, listings, userCurrency }) {
     return (
         <>
-            <h3 className="text-xl">{name}'s listings</h3>
+            <h3 className="font-medium text-xl">{name}'s listings</h3>
             {listings.length === 0 ? (
                 <div className="flex justify-center items-center gap-1 opacity-60">
-                    <span className="text-xl">No Listings Found.</span>
+                    <span className="font-[Mulish] font-bold text-xl">No Listings Found.</span>
                     <FileX size={18} />
                 </div>
             ) : (

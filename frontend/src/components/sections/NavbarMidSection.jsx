@@ -13,28 +13,30 @@ export default function NavbarMidSection({
 
     return (
         <>
-            {isSearchVisible && host ? (
-                <Link 
-                    to="/new"
-                    className="flex items-center gap-1 opacity-70 hover:opacity-100 transition-all duration-200 cursor-pointer"
-                >
-                    <Plus size={16} />
-                    <span className="">Create own Listings</span>
-                </Link>
-            ) : (
-                <button 
-                    onClick={() => {
-                        if (!user) {
-                            return navigate("/login");
-                        } else {
-                            setMyTripModal(true);
-                        }
-                    }}
-                    className="flex items-center gap-1 opacity-70 hover:opacity-100 transition-all duration-200 cursor-pointer"
-                >
-                    <Plane size={16} />
-                    <span className="">My trips</span>
-                </button>
+            {isSearchVisible && (
+                host ? (
+                    <Link 
+                        to="/new"
+                        className="no-bg-btn"
+                    >
+                        <Plus size={16} />
+                        <span className="">Create own Listings</span>
+                    </Link>
+                ) : (
+                    <button 
+                        onClick={() => {
+                            if (!user) {
+                                return navigate("/login");
+                            } else {
+                                setMyTripModal(true);
+                            }
+                        }}
+                        className="no-bg-btn"
+                    >
+                        <Plane size={16} />
+                        <span className="">My trips</span>
+                    </button>
+                )
             )}
 
             <MyTripModal 

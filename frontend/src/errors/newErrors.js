@@ -12,16 +12,26 @@ export const validateSignup = (formData) => {
         password: ""
     };
 
-    if (!validateUsername(formData.username)) {
-        errors.username = "Username must be unique";
+    // Username
+    if (!formData.username.trim()) {
+        errors.username = "Username is required";
+    } else if (!validateUsername(formData.username)) {
+        errors.username =
+            "Username must be 3-30 characters and can only contain letters, numbers, dots, and underscores";
     }
 
-    if (!validateEmail(formData.email)) {
-        errors.email = "Invalid email address";
+    // Email
+    if (!formData.email.trim()) {
+        errors.email = "Email is required";
+    } else if (!validateEmail(formData.email)) {
+        errors.email = "Please enter a valid email address";
     }
 
-    if (!validatePassword(formData.password)) {
-        errors.password = "Password must be at least 8 characters";
+    // Password
+    if (!formData.password) {
+        errors.password = "Password is required";
+    } else if (!validatePassword(formData.password)) {
+        errors.password = "Password must be at least 8 characters long";
     }
 
     return errors;

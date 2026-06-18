@@ -75,7 +75,7 @@ export default function ListingReserve({
             px-2 py-5 rounded-3xl shadow-lg space-y-4"
         >
             <div className="flex items-end gap-1 px-4 py-2">
-                <p className="text-2xl font-[Ramabhadra] underline">
+                <p className="text-2xl font-[Archivo] font-medium underline">
                     {isFetchingRates && userCurrency !== "INR" ? (
                         <span className="w-25 h-8 inline-block shimmer" />
                     ) : (
@@ -88,7 +88,7 @@ export default function ListingReserve({
                         </>
                     )}
                 </p>
-                <span className="text-sm text-zinc-600">
+                <span className="font-mediumtext-sm opacity-80">
                     / night
                 </span>
             </div>

@@ -9,14 +9,19 @@ import ListingCard from "../../components/listings/ListingCard";
 import HomeSkeleton from "../../components/skeletons/HomeSkeleton";
 
 export default function Home() {
-    const { allListings, getAllListings, listingsLoading } = useListingStore();
+    const { 
+        allListings,
+        getAllListings,
+        listingsLoading,
+        resetFilters
+    } = useListingStore();
     const activeCurrency = useActiveCurrency();
     const navigate = useNavigate();    
 
     useEffect(() => {
+        resetFilters();
         getAllListings();
     }, []);
-
 
     return (
         <DashboardLayout>

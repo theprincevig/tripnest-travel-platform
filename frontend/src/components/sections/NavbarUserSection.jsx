@@ -22,7 +22,7 @@ export default function NavbarUserSection({
                             onBecomeHost();
                         }
                     }}
-                    className="px-3 py-2 rounded-full text-sm opacity-80 hover:bg-zinc-200/40 transition-all cursor-pointer"
+                    className="px-3 py-2 rounded-full text-sm font-[Archivo] font-bold opacity-80 hover:bg-zinc-200/40 transition-all cursor-pointer"
                 >
                     {host ? "My Listings" : "Become a host"}
                 </button>

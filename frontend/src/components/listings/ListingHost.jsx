@@ -4,7 +4,10 @@ import UserModal from "../modals/UserModal";
 import UserImageCard from "../cards/UserImageCard";
 
 export default function ListingHost({ owner }) {
-    const [hostModal, setHostModal] = useState(false);    
+    const [hostModal, setHostModal] = useState(false);
+    const displayName =
+    `${owner?.fullName?.firstName || ""} ${owner?.fullName?.lastName || ""}`.trim() ||
+    owner?.username;
 
     return (
         <>
@@ -19,7 +22,7 @@ export default function ListingHost({ owner }) {
                         role={owner?.role}
                         picture={owner?.picture}
                     />
-                    <p className="text-lg hover:underline transition-all">hosted by {owner?.username}</p>
+                    <p className="text-lg hover:underline transition-all">hosted by {displayName}</p>
                 </div>
             </button>
 

@@ -48,7 +48,7 @@ export default function AlertModal({
                 `}
             >
                 <div className="flex flex-col items-center justify-center">
-                    <h3 className="text-2xl font-[Ramabhadra] ">
+                    <h3 className="text-2xl font-[Archivo] font-bold">
                         {hasCancellationFee 
                             ? "Cancellation Fee Applies" 
                             : "Are You Sure?"
@@ -61,14 +61,14 @@ export default function AlertModal({
                     {hasCancellationFee && (
                         <div className="w-full mt-3 rounded-xl bg-zinc-100 text-sm p-3">
                             <div className="flex justify-between">
-                                <span>Cancellation Fee</span>
+                                <span className="font-[Mulish] font-semibold">Cancellation Fee</span>
                                 <span className="font-semibold">
                                     ₹{cancellationFee}
                                 </span>
                             </div>
 
                             <div className="flex justify-between">
-                                <span>Refund Amount</span>
+                                <span className="font-[Mulish] font-semibold">Refund Amount</span>
                                 <span className="font-semibold text-green-600">
                                     ₹{refundAmount}
                                 </span>

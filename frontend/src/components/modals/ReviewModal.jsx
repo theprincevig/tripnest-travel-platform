@@ -104,7 +104,7 @@ export default function ReviewModal({
                 </div>
 
                 <div className="flex flex-col justify-center">
-                    <h2 className="flex items-center justify-start gap-1 text-6xl font-[Ramabhadra] p-2">
+                    <h2 className="flex items-center justify-start gap-1 text-6xl font-[Archivo] font-semibold p-2">
                         <Star size={30} />
                         {averageRating}
                     </h2>
@@ -117,8 +117,8 @@ export default function ReviewModal({
                         />
 
                         <div className="flex flex-col items-start justify-center">
-                            <p className="text-lg">{user?.fullName?.firstName || user?.username}</p>
-                            <p className="text-xs text-zinc-500">
+                            <p className="text-xl font-medium">{user?.fullName?.firstName || user?.username}</p>
+                            <p className="text-sm font-[Mulish] font-semibold text-zinc-500">
                                 {getTimeAgo(user?.createdAt, false)} on tripnest
                             </p>
                         </div>
@@ -146,7 +146,7 @@ export default function ReviewModal({
 
                         <button 
                             type="submit"
-                            className="primary-btn"
+                            className="w-full max-w-40 primary-btn"
                             disabled={createReviewLoading}
                         >
                             {createReviewLoading 

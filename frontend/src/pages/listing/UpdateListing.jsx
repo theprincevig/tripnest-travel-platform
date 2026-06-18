@@ -128,7 +128,7 @@ export default function UpdateListing() {
                             placeholder="Give your title"
                             onChange={handleChange("title")}
                             error={errors.title}
-                            style="w-full max-w-3xl text-3xl font-[Ramabhadra]"
+                            style="w-full max-w-3xl text-3xl font-[Archivo] font-bold"
                         />
 
                         <ImageChanger 
@@ -193,14 +193,14 @@ export default function UpdateListing() {
                             <Link 
                                 to={`/listings/${listingId}`}
                                 type="submit"
-                                className="default-btn"
+                                className="w-full max-w-40 default-btn"
                             >
                                 Back
                             </Link>
 
                             <button 
                                 type="submit"
-                                className="primary-btn"
+                                className="w-full max-w-40 primary-btn"
                                 disabled={updateListingLoading}
                             >
                                 { updateListingLoading ? <Loader size={20} className="animate-spin mx-auto" /> : "Submit" }

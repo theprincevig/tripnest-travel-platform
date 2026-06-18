@@ -37,7 +37,7 @@ export default function ProfileCard({ user }) {
 
                 <div className="">
                     <h3 className="text-xl">{user?.username}</h3>
-                    <p className="flex items-center justify-center text-sm text-zinc-700">
+                    <p className="flex items-center justify-center font-[Mulish] font-semibold text-sm text-zinc-700">
                         {user?.role === "host" ? <HatGlasses size={12} /> : ""}
                         {user?.role}
                     </p>

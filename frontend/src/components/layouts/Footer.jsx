@@ -33,7 +33,7 @@ export default function Footer() {
                     </div>
 
                     <div className="flex items-center gap-1">
-                        <p className="px-2 py-1">
+                        <p className="font-[Archivo] font-medium px-2 py-1">
                             {activeCurrency.details.symbol}
                             {" "}
                             {activeCurrency.code}

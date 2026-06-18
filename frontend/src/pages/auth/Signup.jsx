@@ -112,7 +112,7 @@ export default function Signup() {
 
                             <button 
                                 type="submit"
-                                className="primary-btn mt-8"
+                                className="w-full max-w-40 primary-btn mt-8"
                                 disabled={isSigningUp}
                             >
                                 { isSigningUp ? <Loader size={20} className="animate-spin mx-auto" /> : "Sign up" }

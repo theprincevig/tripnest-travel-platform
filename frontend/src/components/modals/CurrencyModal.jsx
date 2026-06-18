@@ -90,7 +90,7 @@ export default function CurrencyModal({ isOpen, onClose }) {
                                 `}
                             >
                                 <div className="flex flex-col">
-                                    <h4 className="">{currency.name}</h4>
+                                    <h4 className="font-[Mulish] font-semibold">{currency.name}</h4>
                                     <p className="text-sm text-zinc-700">
                                         {currency.code}-{currency.symbol}
                                     </p>

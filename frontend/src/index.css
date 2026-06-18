@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ramabhadra&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -20,15 +19,19 @@
 }
 
 .primary-btn {
-    @apply w-full max-w-40 py-2 rounded-xl bg-primary text-white font-[Ramabhadra] shadow-xl hover:bg-blue-600 transition-all active:scale-95 cursor-pointer disabled:bg-gray-400;
+    @apply w-full py-2 bg-primary text-white font-[Archivo] font-bold rounded-xl shadow-xl hover:bg-blue-600 transition-all active:scale-95 cursor-pointer disabled:bg-gray-400;
 }
 
 .error-btn {
-  @apply w-full max-w-40 py-2 rounded-xl bg-red-500 text-white font-[Ramabhadra] shadow-xl hover:bg-red-600 transition-all active:scale-95 cursor-pointer disabled:bg-gray-400;
+  @apply w-full py-2 bg-red-500 text-white font-[Archivo] font-bold rounded-xl shadow-xl hover:bg-red-600 transition-all active:scale-95 cursor-pointer disabled:bg-gray-400;
 }
 
 .default-btn {
-  @apply w-full max-w-40 py-2 rounded-xl bg-zinc-200 text-center font-[Ramabhadra] hover:bg-zinc-300 transition-all active:scale-95 cursor-pointer;
+  @apply w-full py-2 bg-zinc-200 text-center font-[Archivo] font-bold rounded-xl hover:bg-zinc-300 transition-all active:scale-95 cursor-pointer;
+}
+
+.no-bg-btn {
+  @apply flex items-center gap-1 opacity-70 text-lg font-[Archivo] font-medium hover:opacity-100 transition-all duration-200 cursor-pointer;
 }
 
 /* -------------------------------------------------- */

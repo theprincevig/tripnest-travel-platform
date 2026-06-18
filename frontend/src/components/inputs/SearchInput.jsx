@@ -1,3 +1,4 @@
+import { Search, X } from "lucide-react";
 import { useState } from "react";
 
 export default function SearchInput({
@@ -7,7 +8,8 @@ export default function SearchInput({
     value,
     placeholder,
     onChange,
-    handleSearch
+    handleSearch,
+    handleClear
 }) {
 
     const [isFocused, setIsFocused] = useState(false);
@@ -15,17 +17,26 @@ export default function SearchInput({
 
     return (
         <div 
-            className="w-full max-w-3xl flex items-center rounded-full bg-white 
+            className="relative w-full max-w-3xl flex items-center rounded-full bg-white 
             border border-zinc-200 shadow-lg inset-shadow-sm p-2 overflow-hidden 
             active:scale-99 transition-all"
         >
+            {value && (
+                <button 
+                    onClick={handleClear}
+                    className="absolute left-3 opacity-60 hover:opacity-100 transition-all duration-200 cursor-pointer"
+                >
+                    <X size={22} />
+                </button>
+            )}
+            
             <input 
                 type={type}
                 name={name}
                 value={value}
                 placeholder={placeholder}
                 onChange={onChange}
-                className="w-full font-[Poppins] ml-4 outline-none" 
+                className="w-full ml-8 outline-none" 
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
@@ -39,11 +50,11 @@ export default function SearchInput({
                 `}
                 onClick={handleSearch}
             >
-                {icon}
+                {<Search size={22} />}
                 <span
                     className={`
-                        overflow-hidden whitespace-nowrap font-[Ramabhadra]
-                        transition-all duration-300 ease-in-out
+                        overflow-hidden whitespace-nowrap font-[Archivo]
+                        font-semibold transition-all duration-300 ease-in-out
                         ${isActive ? "max-w-25 opacity-100" : "max-w-0 opacity-0"}
                     `}
                 >

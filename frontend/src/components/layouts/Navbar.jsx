@@ -1,4 +1,3 @@
-import { Globe, Menu, Plane, Plus, Search } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useListingStore } from "../../stores/useListingStore";
 import { useAuthStore } from "../../stores/useAuthStore";
@@ -11,22 +10,33 @@ import NavbarUserSection from "../sections/NavbarUserSection";
 import Modal from "../Modal";
 
 export default function Navbar({ isSearchVisible }) {
-    const { getAllListings, setFilters } = useListingStore();
+    const { 
+        filters,
+        getAllListings,
+        setFilters,
+        resetFilters,
+    } = useListingStore();
     const { authUser, becomeHost } = useAuthStore();
 
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState(filters.search);
     const [userModal, setUserModal] = useState(false);
 
     const location = useLocation();
     const navigate = useNavigate();
 
     const handleSearch = () => {
-        if (location.pathname !== "/listings") {
+        if (location.pathname !== "/") {
             navigate("/");
         }
         setFilters({ search: value });
         getAllListings({ search: value });
     }
+
+    const handleClearSearch = () => {
+        setValue("");
+        resetFilters();
+        getAllListings();
+    };
 
     const handleHostButton = async () => {
         if (!authUser) {
@@ -76,13 +86,13 @@ export default function Navbar({ isSearchVisible }) {
             {isSearchVisible && (
                 <div className="w-full flex items-center justify-center h-30">
                     <SearchInput
-                        icon={<Search size={22} />}
                         type="text"
                         name="search"
                         value={value}
                         placeholder="search destinations..."
                         onChange={(e) => setValue(e.target.value)}
                         handleSearch={handleSearch}
+                        handleClear={handleClearSearch}
                     />
                 </div>
             )}

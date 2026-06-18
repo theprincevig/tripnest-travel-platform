@@ -70,10 +70,10 @@ export default function MyTripModal({ isOpen, onClose }) {
                         </div>
                     ) : (
                         reservations.length === 0 ? (
-                            <div className="text-center py-10 text-zinc-500">
-                                <p className="text-xl">No trips yet.</p>
-                                <p className="text-sm">
-                                    Your reservations will appear here.
+                            <div className="text-center font-[Mulish] opacity-50 py-10">
+                                <p className="text-xl font-bold">No trips yet</p>
+                                <p className="text-sm font-semibold">
+                                    Your reservations will appear here
                                 </p>
                             </div>
                         ) : (

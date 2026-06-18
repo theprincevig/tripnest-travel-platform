@@ -6,6 +6,10 @@ import UserImageCard from "../cards/UserImageCard";
 import RatingStar from "../RatingStar";
 
 export default function ReviewCard({ review, canDelete, onDelete }) {
+    const displayName =
+        `${review.author?.fullName?.firstName || ""} ${review.author?.fullName?.lastName || ""}`.trim() ||
+        review.author?.username;
+    
     return (
         <div 
             className="group relative flex-1 h-50 space-y-4"
@@ -22,11 +26,10 @@ export default function ReviewCard({ review, canDelete, onDelete }) {
                 />
                 
                 <div className="flex flex-col items-start justify-center">
-                    <p className="text-lg">
-                        {review.author.fullName?.firstName 
-                        || review.author.username}
+                    <p className="font-[Archivo] font-medium text-lg">
+                        {displayName}
                     </p>
-                    <span className="text-xs text-zinc-500">
+                    <span className="text-xs font-[Mulish] font-semibold text-zinc-500">
                         {getTimeAgo(review.author.createdAt, false)} on tripnest
                     </span>
                 </div>

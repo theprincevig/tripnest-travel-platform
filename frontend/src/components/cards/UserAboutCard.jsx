@@ -10,8 +10,8 @@ export default function UserAboutCard({ reviews, ratings, listings }) {
 
             <div className="w-full border-t border-zinc-200" />
 
-            <div className="flex flex-col justify-center ">
-                <h3 className="flex items-center text-xl">
+            <div className="flex flex-col justify-center">
+                <h3 className="flex items-center text-xl font-[Archivo] font-semibold">
                     {ratings}
                     <Star size={14} />
                 </h3>

@@ -29,11 +29,11 @@ export default function ReservationCard({ listing, reservation }) {
 
             <div className="flex-1 space-y-1 px-2 py-1">
                 <div className="flex flex-col justify-center mb-2">
-                    <h4 className="font-semibold text-xl">
+                    <h4 className="font-[Archivo] font-bold text-xl">
                         {listing.title}
                     </h4>
 
-                    <p className="flex items-center gap-1 text-sm text-zinc-600">
+                    <p className="flex items-center gap-1 font-[Mulish] font-semibold text-sm text-zinc-600">
                         <MapPinCheckInside size={14} className="text-red-500" />
                         {listing.location},{" "}
                         {listing.country}
@@ -54,8 +54,8 @@ export default function ReservationCard({ listing, reservation }) {
                     {new Date(reservation.checkOut).toLocaleDateString()}
                 </p>
 
-                <p className="flex items-center text-green-600 font-medium gap-1">
-                    <span className="text-black opacity-95">Total:</span>
+                <p className="flex items-center font-[Archivo] font-bold text-green-600 gap-1">
+                    <span className="text-black font-semibold opacity-95">Total:</span>
                     {isFetchingRates && activeCurrency.code !== "INR" ? (
                         <span className="w-25 h-5 inline-block shimmer" />
                     )
@@ -72,7 +72,7 @@ export default function ReservationCard({ listing, reservation }) {
             <div className="flex-1">
                 <p className="text-sm text-right">
                     Status:{" "}
-                    <span className={`font-medium ${status.className}`}>
+                    <span className={`font-[Mulish] font-bold ${status.className}`}>
                         {status.label}
                     </span>
                 </p>

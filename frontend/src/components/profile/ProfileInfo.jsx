@@ -1,4 +1,4 @@
-import { Pencil } from "lucide-react";
+import { Languages, MapPin, Pencil, PhoneIncoming } from "lucide-react";
 import { Link } from "react-router-dom";
 import ProfileCard from "../cards/ProfileCard";
 
@@ -12,12 +12,15 @@ export default function ProfileInfo({ authUser, profileUser, name, }) {
             <div className="w-full bg-white max-w-sm rounded-3xl shadow-xl inset-shadow-2xs px-2 py-4">
                 <ProfileCard user={profileUser} />
             </div>
-            <div className="flex-1 flex flex-col items-start justify-center space-y-3 p-4">
-                <h2 className="text-4xl font-semibold">
+            <div className="flex-1 font-[Mulish] flex flex-col items-start justify-center space-y-2 p-4">
+                <h2 className="text-4xl font-[Archivo] font-semibold">
                     About {name}
                 </h2>
+
                 <p className="">Born in {dob}</p>
-                <p>
+                
+                <p className="flex items-center gap-1">
+                    <MapPin size={14} />
                     Lives in{" "}
                     {profileUser?.address?.city}{" "}
                     {profileUser?.address?.state}{", "}
@@ -26,9 +29,22 @@ export default function ProfileInfo({ authUser, profileUser, name, }) {
 
                 {profileUser?.role === "host" && (
                     <>
-                        <p>Contact No. {profileUser?.phone}</p>
-                        <p>Languages: {profileUser?.hostProfile?.languages?.join(", ")}</p>
-                        <p>{profileUser?.hostProfile?.about}</p>
+                        <p className="flex items-center gap-1">
+                            <Languages size={16} />
+                            Languages:{" "}
+                            {profileUser?.hostProfile?.languages?.join(", ")}
+
+                        </p>
+                        
+                        <p className="flex items-center gap-2 hover:underline transition-all">
+                            <PhoneIncoming size={13} />
+                            Contact No.{" "}
+                            {profileUser?.phone}
+                        </p>
+                        
+                        <p className="font-[Poppins] mt-6">
+                            {profileUser?.hostProfile?.about}
+                        </p>
                     </>
                 )}
             </div>

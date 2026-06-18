@@ -17,8 +17,8 @@ export default function ListingCard({ listing, userCurrency }) {
             />
 
             <div className="flex flex-col justify-center px-2 ml-2">
-                <p className="text-sm font-[Ramabhadra]">{listing.title} in {listing.location}</p>
-                <p className="text-xs text-zinc-700">
+                <p className="text-sm font-[Archivo] font-semibold">{listing.title} in {listing.location}</p>
+                <p className="text-xs font-[Mulish] font-medium text-zinc-700">
                     {isFetchingRates && userCurrency !== "INR" ? (
                         <span className=" w-40 h-3 shimmer inline-block" />
                     ) : (
