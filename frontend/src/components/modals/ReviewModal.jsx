@@ -58,7 +58,7 @@ export default function ReviewModal({
         if (hasErrors(newErrors)) return setErrors(newErrors);
         
         try {
-            const res = await createReview(
+            await createReview(
                 listing?._id,
                 listing.owner?._id,
                 reviewData

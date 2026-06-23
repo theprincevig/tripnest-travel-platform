@@ -17,7 +17,7 @@ export default function MyTripModal({ isOpen, onClose }) {
         if (isOpen) {
             getReservations();
         }
-    }, [isOpen]);
+    }, [isOpen, getReservations]);
 
     useEffect(() => {
         if (isOpen) {

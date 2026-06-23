@@ -1,8 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import { useListingStore } from "../../stores/useListingStore";
-import { useEffect } from "react";
-import { FileX } from "lucide-react";
 import { useActiveCurrency } from "../../hooks/useActiveCurrency";
+import { useListingStore } from "../../stores/useListingStore";
+import { FileX } from "lucide-react";
+import { useEffect } from "react";
 
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import ListingCard from "../../components/listings/ListingCard";
@@ -11,7 +10,6 @@ import HomeSkeleton from "../../components/skeletons/HomeSkeleton";
 export default function MyListings() {
     const { myListings, getMyListings, listingsLoading } = useListingStore();
     const activeCurrency = useActiveCurrency();
-    const navigate = useNavigate();
 
     useEffect(() => {
         getMyListings();
