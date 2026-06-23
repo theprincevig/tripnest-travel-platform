@@ -1,14 +1,15 @@
-import { useNavigate } from "react-router-dom";
-import { useAuthStore } from "../../stores/useAuthStore";
-import { useState } from "react";
-import { KeyRound, Loader, Loader2 } from "lucide-react";
 import { hasErrors, validateChangePassword } from "../../errors/newErrors";
+import { KeyRound, Loader, Loader2 } from "lucide-react";
+import { useAuthStore } from "../../stores/useAuthStore";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
-import DashboardLayout from "../../components/layouts/DashboardLayout";
 import AuthHeader from "../../components/AuthHeader";
 import AuthInput from "../../components/inputs/AuthInput";
+import DashboardLayout from "../../components/layouts/DashboardLayout";
 import PasswordStrengthMeter from "../../components/inputs/passwordStrengthMeter";
+
 
 export default function ChangePassword() {
     const initState = {
