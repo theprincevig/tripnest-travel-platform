@@ -1,16 +1,16 @@
 import { KeyRound, Loader, Loader2, Mail, User } from "lucide-react";
-import { useAuthStore } from "../../stores/useAuthStore";
-import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { hasErrors, validateSignup } from "../../errors/newErrors";
 import { initialSignupData } from "../../constants/initialData";
+import { useAuthStore } from "../../stores/useAuthStore";
+import { useState } from "react";
 import toast from "react-hot-toast";
 
+import GoogleAuth from "./GoogleAuth";
 import AuthHeader from "../../components/AuthHeader";
 import AuthInput from "../../components/inputs/AuthInput";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
 import PasswordStrengthMeter from "../../components/inputs/passwordStrengthMeter";
-import GoogleAuth from "./GoogleAuth";
 
 export default function Signup() {
     const { isSigningUp, signup } = useAuthStore();
