@@ -75,7 +75,7 @@ export default function ViewProfile() {
 
                                 <div className="w-full border-t border-zinc-300 text-center mt-8" />
 
-                                {authUser?.role === "host" && (
+                                {profileUser?.role === "host" && (
                                     <ProfileListings 
                                         name={displayName}
                                         listings={userListings}

@@ -87,7 +87,7 @@ export default function AboutReviews({
                                 <div className="flex justify-start mt-8">
                                     <button 
                                         onClick={() => setShowAllReviews(prev => !prev)}
-                                        className="default-btn"
+                                        className="w-full max-w-30 default-btn"
                                     >
                                         {showAllReviews ? "Show less" : "Show more"}
                                     </button>

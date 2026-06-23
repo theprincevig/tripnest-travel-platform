@@ -69,8 +69,6 @@ export default function Listing() {
     };
 
     const handleCancellation = async () => {
-        console.log(selectedReservation);
-        
         if (!selectedReservation) return;
         try {
             await cancelReservation(
