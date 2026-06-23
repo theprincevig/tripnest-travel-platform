@@ -10,7 +10,7 @@ import GoogleAuth from "./GoogleAuth";
 import AuthHeader from "../../components/AuthHeader";
 import AuthInput from "../../components/inputs/AuthInput";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
-import PasswordStrengthMeter from "../../components/inputs/passwordStrengthMeter";
+import PasswordStrengthMeter from "../../components/inputs/PasswordStrengthMeter";
 
 export default function Signup() {
     const { isSigningUp, signup } = useAuthStore();

@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import AuthHeader from "../../components/AuthHeader";
 import AuthInput from "../../components/inputs/AuthInput";
 import DashboardLayout from "../../components/layouts/DashboardLayout";
-import PasswordStrengthMeter from "../../components/inputs/passwordStrengthMeter";
+import PasswordStrengthMeter from "../../components/inputs/PasswordStrengthMeter";
 
 
 export default function ChangePassword() {
