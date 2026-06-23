@@ -15,7 +15,7 @@ export default function MyListings() {
 
     useEffect(() => {
         getMyListings();
-    }, []);
+    }, [getMyListings]);
 
     return (
         <DashboardLayout>

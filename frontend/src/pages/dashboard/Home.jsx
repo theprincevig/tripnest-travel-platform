@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useListingStore } from "../../stores/useListingStore";
-import { useNavigate } from "react-router-dom";
 import { FileX } from "lucide-react";
 import { useActiveCurrency } from "../../hooks/useActiveCurrency";
 
@@ -15,13 +14,12 @@ export default function Home() {
         listingsLoading,
         resetFilters
     } = useListingStore();
-    const activeCurrency = useActiveCurrency();
-    const navigate = useNavigate();    
+    const activeCurrency = useActiveCurrency();   
 
     useEffect(() => {
         resetFilters();
         getAllListings();
-    }, []);
+    }, [resetFilters, getAllListings]);
 
     return (
         <DashboardLayout>

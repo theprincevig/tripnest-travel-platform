@@ -50,11 +50,11 @@ export default function Listing() {
         getListing(listingId);
 
         return () => clearSingleListing();
-    }, [listingId]);
+    }, [listingId, getListing, clearSingleListing]);
 
     useEffect(() => {
         getReservations();
-    }, []);
+    }, [getReservations]);
 
     const handleDelete = async () => {
         try {

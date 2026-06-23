@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useAuthStore } from "../../stores/useAuthStore";
 import { useListingStore } from "../../stores/useListingStore";
 import { useActiveCurrency } from "../../hooks/useActiveCurrency";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { CircleSlash, Flag, Loader } from "lucide-react";
 
 import DashboardLayout from "../../components/layouts/DashboardLayout";
@@ -24,7 +24,6 @@ export default function ViewProfile() {
     } = useListingStore();
     
     const activeCurrency = useActiveCurrency();
-    const navigate = useNavigate();
     const { username } = useParams();
 
     useEffect(() => {

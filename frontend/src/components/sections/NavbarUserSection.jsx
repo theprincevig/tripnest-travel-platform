@@ -3,7 +3,6 @@ import { useState } from "react";
 import CurrencyModal from "../modals/CurrencyModal";
 
 export default function NavbarUserSection({
-    user,
     host,
     navigate,
     onBecomeHost,

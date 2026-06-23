@@ -2,7 +2,6 @@ import { Search, X } from "lucide-react";
 import { useState } from "react";
 
 export default function SearchInput({
-    icon,
     type,
     name,
     value,

@@ -1,7 +1,6 @@
 import {
     validateEmail,
     validatePassword,
-    validatePhone,
     validateUsername
 } from "../lib/validators";
 

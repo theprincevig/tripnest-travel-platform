@@ -74,7 +74,6 @@ export default function Navbar({ isSearchVisible }) {
                 />
 
                 <NavbarUserSection 
-                    user={authUser}
                     host={authUser?.role === "host"}
                     navigate={navigate}
                     onBecomeHost={handleHostButton}

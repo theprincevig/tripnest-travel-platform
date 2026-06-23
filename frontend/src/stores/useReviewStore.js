@@ -3,7 +3,7 @@ import { axiosInstance } from '../lib/axios';
 import { API_PATHS } from '../utils/apiPaths';
 import { useHostStore } from './useHostStore';
 
-export const useReviewStore = create((set, get) => ({
+export const useReviewStore = create((set) => ({
     reviews: [],
 
     reviewsLoading: false,

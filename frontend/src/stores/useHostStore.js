@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { axiosInstance } from '../lib/axios';
 import { API_PATHS } from '../utils/apiPaths';
 
-export const useHostStore = create((set, get) => ({
+export const useHostStore = create((set) => ({
     hostStats: {},
     hostStatsLoading: false,
 
