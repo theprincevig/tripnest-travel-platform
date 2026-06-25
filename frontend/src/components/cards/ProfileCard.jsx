@@ -44,11 +44,13 @@ export default function ProfileCard({ user }) {
                 </div>
             </div>
 
-            <UserAboutCard 
-                reviews={stats.totalReviews || 0}
-                ratings={stats.averageRating || "0.0"}
-                listings={stats.totalListings || 0}
-            />
+            {user?.role === "host" && (
+                <UserAboutCard 
+                    reviews={stats.totalReviews || 0}
+                    ratings={stats.averageRating || "0.0"}
+                    listings={stats.totalListings || 0}
+                />
+            )}
         </Link>
     );
 }

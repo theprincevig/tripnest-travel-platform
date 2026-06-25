@@ -1,4 +1,4 @@
-import { Languages, MapPin, Pencil, PhoneIncoming } from "lucide-react";
+import { KeyRoundIcon, Languages, MapPin, Pencil, PhoneIncoming } from "lucide-react";
 import { Link } from "react-router-dom";
 import ProfileCard from "../cards/ProfileCard";
 
@@ -47,6 +47,14 @@ export default function ProfileInfo({ authUser, profileUser, name, }) {
                         </p>
                     </>
                 )}
+
+                <Link
+                    to="/change-password"
+                    className="flex items-center gap-1 underline"
+                >
+                    <KeyRoundIcon size={14} />
+                    Change password
+                </Link>
             </div>
 
             {authUser?.username === profileUser?.username && (
