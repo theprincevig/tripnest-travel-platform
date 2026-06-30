@@ -48,13 +48,16 @@ export default function ProfileInfo({ authUser, profileUser, name, }) {
                     </>
                 )}
 
-                <Link
-                    to="/change-password"
-                    className="flex items-center gap-1 underline"
-                >
-                    <KeyRoundIcon size={14} />
-                    Change password
-                </Link>
+                {authUser?.username === profileUser?.username && (
+                    <Link
+                        to="/change-password"
+                        className="flex items-center gap-1 underline"
+                    >
+                        <KeyRoundIcon size={14} />
+                        Change password
+                    </Link>
+                )}
+
             </div>
 
             {authUser?.username === profileUser?.username && (
