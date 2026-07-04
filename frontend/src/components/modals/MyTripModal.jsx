@@ -38,7 +38,7 @@ export default function MyTripModal({ isOpen, onClose }) {
             onClick={onClose}
             className={`
                 fixed inset-0 flex justify-center items-center 
-                bg-black/30 z-2000 
+                bg-black/30 z-2000 px-3
                 transition-opacity duration-300 
                 ${isOpen ? "opacity-100" : "opacity-0"}
             `}
@@ -52,7 +52,7 @@ export default function MyTripModal({ isOpen, onClose }) {
                 `}
             >
                 <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-xl">My Trips</h3>
+                    <h3 className="text-base sm:text-xl">My Trips</h3>
                     <button 
                         onClick={onClose}
                         className="rounded-full p-1 hover:bg-zinc-100 transition-all duration-200 cursor-pointer"
@@ -63,7 +63,7 @@ export default function MyTripModal({ isOpen, onClose }) {
 
                 <div className="border-t border-zinc-200 mb-6" />
 
-                <div className="max-h-[70vh] overflow-y-auto space-y-4 pr-2">
+                <div className="max-h-[45vh] sm:max-h-[70vh] overflow-y-auto space-y-4 pr-2">
                     {getReservationLoading ? (
                         <div className="h-40 flex items-center">
                             <Loader size={20} className="animate-spin mx-auto" />
@@ -71,8 +71,8 @@ export default function MyTripModal({ isOpen, onClose }) {
                     ) : (
                         reservations.length === 0 ? (
                             <div className="text-center font-[Mulish] opacity-50 py-10">
-                                <p className="text-xl font-bold">No trips yet</p>
-                                <p className="text-sm font-semibold">
+                                <p className="text-base sm:text-xl font-bold">No trips yet</p>
+                                <p className="text-xs sm:text-sm font-semibold">
                                     Your reservations will appear here
                                 </p>
                             </div>

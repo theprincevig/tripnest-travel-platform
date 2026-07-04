@@ -149,7 +149,7 @@ export default function CreateListing() {
 
                     <button 
                         type="submit"
-                        className="w-full max-w-40 primary-btn mt-8"
+                        className="w-full max-w-25 sm:max-w-40 primary-btn mt-8"
                         disabled={createListingLoading}
                     >
                         { createListingLoading ? <Loader size={20} className="animate-spin mx-auto" /> : "Submit" }

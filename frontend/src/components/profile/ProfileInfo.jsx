@@ -8,18 +8,18 @@ export default function ProfileInfo({ authUser, profileUser, name, }) {
         : "Not provided";
 
     return (
-        <div className="relative flex items-center gap-8 p-4">
+        <div className="relative flex flex-col sm:flex-row items-center gap-8 p-4">
             <div className="w-full bg-white max-w-sm rounded-3xl shadow-xl inset-shadow-2xs px-2 py-4">
                 <ProfileCard user={profileUser} />
             </div>
             <div className="flex-1 font-[Mulish] flex flex-col items-start justify-center space-y-2 p-4">
-                <h2 className="text-4xl font-[Archivo] font-semibold">
+                <h2 className="text-2xl sm:text-4xl font-[Archivo] font-semibold">
                     About {name}
                 </h2>
 
-                <p className="">Born in {dob}</p>
+                <p className="text-sm sm:text-base">Born in {dob}</p>
                 
-                <p className="flex items-center gap-1">
+                <p className="text-sm sm:text-base flex items-center gap-1">
                     <MapPin size={14} />
                     Lives in{" "}
                     {profileUser?.address?.city}{" "}
@@ -29,20 +29,20 @@ export default function ProfileInfo({ authUser, profileUser, name, }) {
 
                 {profileUser?.role === "host" && (
                     <>
-                        <p className="flex items-center gap-1">
+                        <p className="text-sm sm:text-base flex items-center gap-1">
                             <Languages size={16} />
                             Languages:{" "}
                             {profileUser?.hostProfile?.languages?.join(", ")}
 
                         </p>
                         
-                        <p className="flex items-center gap-2 hover:underline transition-all">
+                        <p className="text-sm sm:text-base flex items-center gap-2 hover:underline transition-all">
                             <PhoneIncoming size={13} />
                             Contact No.{" "}
                             {profileUser?.phone}
                         </p>
                         
-                        <p className="font-[Poppins] mt-6">
+                        <p className="text-sm sm:text-base font-[Poppins] mt-6">
                             {profileUser?.hostProfile?.about}
                         </p>
                     </>
@@ -51,7 +51,7 @@ export default function ProfileInfo({ authUser, profileUser, name, }) {
                 {authUser?.username === profileUser?.username && (
                     <Link
                         to="/change-password"
-                        className="flex items-center gap-1 underline"
+                        className="text-sm sm:text-base flex items-center gap-1 underline"
                     >
                         <KeyRoundIcon size={14} />
                         Change password
@@ -67,7 +67,7 @@ export default function ProfileInfo({ authUser, profileUser, name, }) {
                     text-white bg-primary hover:scale-110 
                     transition-all duration-300 cursor-pointer"
                 >
-                    <Pencil size={20} />
+                    <Pencil className="size-4 sm:size-5" />
                 </Link>
             )}
         </div>

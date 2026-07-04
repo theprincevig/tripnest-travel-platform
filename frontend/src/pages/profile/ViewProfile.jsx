@@ -61,7 +61,7 @@ export default function ViewProfile() {
                 ) : (
                     <div className="w-full max-w-7xl space-y-6">
                         {!profileUser ? (
-                            <p className="text-center font-[Archivo] font-bold text-3xl">
+                            <p className="text-center font-[Archivo] font-bold text-xl sm:text-3xl">
                                 User not found
                             </p>
                         ) : (

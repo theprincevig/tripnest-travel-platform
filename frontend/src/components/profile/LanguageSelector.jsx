@@ -10,12 +10,12 @@ export default function LanguageSelector({
 
     return (
         <div className="relative">
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-3">
                 {languages.map((language) => (
                     <label
                         key={language}
                         className={`
-                            flex items-center gap-2 px-3 py-2 rounded-lg
+                            flex items-center gap-2 px-3 py-2 rounded-lg text-sm sm:text-base
                             ${Host ? "cursor-pointer" : "cursor-not-allowed opacity-50"}
                         `}
                     >
@@ -34,7 +34,7 @@ export default function LanguageSelector({
             </div>
 
             {error && (
-                <p className="mt-1 text-sm text-red-500">
+                <p className="mt-1 text-xs text-red-500">
                     {error}
                 </p>
             )}

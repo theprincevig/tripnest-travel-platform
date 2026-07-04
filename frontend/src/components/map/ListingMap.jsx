@@ -11,13 +11,13 @@ export default function ListingMap({ listing }) {
 
     return (
         <div className="space-y-4">
-            <h2 className="text-2xl font-[Archivo] font-semibold">Where you'll be</h2>
-            <p className='text-base opacity-90'>
+            <h2 className="text-xl sm:text-2xl font-[Archivo] font-semibold">Where you'll be</h2>
+            <p className='text-sm sm:text-base opacity-90'>
                 {listing?.location}, {listing?.country}
             </p>
 
             {!isAvailable ? (
-                <p className="text-center font-[mulish] font-semibold text-zinc-400">
+                <p className="text-center text-sm sm:text-base font-[mulish] font-semibold text-zinc-400">
                     Map unavailable for this location
                 </p>
             ) : (
@@ -52,7 +52,7 @@ export default function ListingMap({ listing }) {
                 </MapContainer>
             )}
 
-            <p className='font-[Mulish] font-semibold text-sm opacity-90'>
+            <p className='font-[Mulish] font-semibold text-xs sm:text-sm opacity-90'>
                 Exact location will be shared after your reservation is confirmed
             </p>
         </div>

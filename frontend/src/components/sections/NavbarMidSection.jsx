@@ -20,7 +20,7 @@ export default function NavbarMidSection({
                         className="no-bg-btn"
                     >
                         <Plus size={16} />
-                        <span className="">Create own Listings</span>
+                        <span className="text-sm sm:text-lg">New</span>
                     </Link>
                 ) : (
                     <button 
@@ -34,7 +34,7 @@ export default function NavbarMidSection({
                         className="no-bg-btn"
                     >
                         <Plane size={16} />
-                        <span className="">My trips</span>
+                        <span className="text-sm sm:text-lg">My trips</span>
                     </button>
                 )
             )}

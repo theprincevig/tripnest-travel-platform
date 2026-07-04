@@ -19,14 +19,14 @@ export default function ReviewCard({ review, canDelete, onDelete }) {
                 className="flex items-center gap-3"
             >
                 <UserImageCard 
-                    style="w-12 h-12"
+                    style="w-10 sm:w-12 h-10 sm:h-12"
                     iconSize={12}
                     role={review.author.role}
                     picture={review.author.picture}
                 />
                 
                 <div className="flex flex-col items-start justify-center">
-                    <p className="font-[Archivo] font-medium text-lg">
+                    <p className="font-[Archivo] font-medium text-sm sm:text-lg">
                         {displayName}
                     </p>
                     <span className="text-xs font-[Mulish] font-semibold text-zinc-500">
@@ -43,12 +43,12 @@ export default function ReviewCard({ review, canDelete, onDelete }) {
                         readOnly={true}
                     />
                     <Dot size={10} className="text-zinc-400" />
-                    <span className="text-sm text-zinc-500">
+                    <span className="text-xs sm:text-sm text-zinc-500">
                         {getTimeAgo(review.createdAt)}
                     </span>
                 </div>
 
-                <p className="">
+                <p className="text-xs sm:text-base">
                     {review.comment}
                 </p>
             </div>

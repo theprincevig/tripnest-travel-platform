@@ -81,7 +81,7 @@ export default function ReviewModal({
             onClick={onClose}
             className={`
                 fixed inset-0 flex justify-center items-center 
-                bg-black/30 z-2000 
+                bg-black/30 z-2000 px-3
                 transition-opacity duration-300 
                 ${isOpen ? "opacity-100" : "opacity-0"}
             `}
@@ -104,21 +104,21 @@ export default function ReviewModal({
                 </div>
 
                 <div className="flex flex-col justify-center">
-                    <h2 className="flex items-center justify-start gap-1 text-6xl font-[Archivo] font-semibold p-2">
-                        <Star size={30} />
+                    <h2 className="flex items-center justify-start gap-1 text-4xl sm:text-6xl font-[Archivo] font-semibold p-2">
+                        <Star className="size-6 sm:size-10" />
                         {averageRating}
                     </h2>
 
                     <div className="flex justify-start items-center gap-3 px-3 py-2 mb-2">
                         <UserImageCard 
-                            style="w-12 h-12"
+                            style="w-10 sm:w-12 h-10 sm:h-12"
                             iconSize={15}
                             picture={user?.picture}
                         />
 
                         <div className="flex flex-col items-start justify-center">
-                            <p className="text-xl font-medium">{user?.fullName?.firstName || user?.username}</p>
-                            <p className="text-sm font-[Mulish] font-semibold text-zinc-500">
+                            <p className="text-sm sm:text-xl font-medium">{user?.fullName?.firstName || user?.username}</p>
+                            <p className="text-xs sm:text-sm font-[Mulish] font-semibold text-zinc-500">
                                 {getTimeAgo(user?.createdAt, false)} on tripnest
                             </p>
                         </div>
@@ -146,7 +146,7 @@ export default function ReviewModal({
 
                         <button 
                             type="submit"
-                            className="w-full max-w-40 primary-btn"
+                            className="w-full max-w-30 sm:max-w-40 primary-btn"
                             disabled={createReviewLoading}
                         >
                             {createReviewLoading 

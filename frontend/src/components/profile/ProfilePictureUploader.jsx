@@ -11,15 +11,15 @@ export default function ProfilePictureUploader({
             <img 
                 src={preview || "/user/avatar.png"} 
                 alt="user" 
-                className="w-40 h-40 rounded-full shadow-xl object-cover"
+                className="w-25 sm:w-40 h-25 sm:h-40 rounded-full shadow-xl object-cover"
             />
 
             {!preview ? (
                 <label 
-                    className="absolute bottom-0 right-5 rounded-full bg-green-500 text-white p-2 
-                    hover:scale-110 transition-all duration-200 cursor-pointer"
+                    className="absolute bottom-0 right-2 sm:right-5 rounded-full bg-green-500 text-white 
+                    p-1.5 sm:p-2 hover:scale-110 transition-all duration-200 cursor-pointer"
                 >
-                    <Camera size={20} />
+                    <Camera className="size-4 sm:size-6" />
                     <input 
                         type="file"
                         id="avatar-upload"
@@ -32,10 +32,10 @@ export default function ProfilePictureUploader({
             ) : (
                 <button 
                     onClick={onRemovePicture}
-                    className="absolute bottom-0 right-5 rounded-full bg-red-500 text-white p-2 
-                    hover:scale-110 transition-all duration-200 cursor-pointer"
+                    className="absolute bottom-0 right-2 sm:right-5 rounded-full bg-red-500 text-white 
+                    p-1.5 sm:p-2 hover:scale-110 transition-all duration-200 cursor-pointer"
                 >
-                    <Trash2 size={20} />
+                    <Trash2 className="size-4 sm:size-6" />
                 </button>
             )}
         </div>

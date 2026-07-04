@@ -21,7 +21,7 @@ export default function Modal({ user, onBecomeHost }) {
     }
 
     return (
-        <div className="absolute right-18 top-20 w-full max-w-70 rounded-xl bg-white font-[Poppins] shadow-md py-4">
+        <div className="absolute right-5 sm:right-18 top-15 sm:top-20 w-full max-w-70 rounded-xl bg-white font-[Poppins] shadow-md py-4">
             <div className="flex items-center gap-4 px-4 py-2 hover:bg-zinc-100/80 cursor-pointer">
                 <CircleQuestionMark size={18} />
                 <span className="text-sm">Help Center</span>
@@ -29,17 +29,25 @@ export default function Modal({ user, onBecomeHost }) {
 
             <div className="border border-t-0 border-zinc-300 mx-4 my-2"/>
 
-            <button 
-                onClick={onBecomeHost}
-                className={`
-                    flex flex-col justify-center px-4 py-2 w-full text-left text-sm font-medium 
-                    ${user?.role === "host" ? "disabled:opacity-50" : "hover:bg-zinc-100/80 cursor-pointer"}
-                `}
-                disabled={user?.role === "host"}
-            >
-                Become a host
-                <p className="text-xs text-zinc-400">It's easy to start hosting and earn extra income.</p>
-            </button>
+            {user?.role === "host" ? (
+                <Link 
+                    to="/my-listings" 
+                    className="flex flex-1 text-sm px-4 py-2 hover:bg-zinc-100/80"
+                >
+                    My Listings
+                </Link>
+            ) : (
+                <button 
+                    onClick={onBecomeHost}
+                    className={`
+                        flex flex-col justify-center px-4 py-2 w-full text-left text-sm 
+                        font-medium hover:bg-zinc-100/80 cursor-pointer
+                    `}
+                >
+                    Become a host
+                    <p className="text-xs text-zinc-400">It's easy to start hosting and earn extra income.</p>
+                </button>
+            )}
 
             <div className="border border-t-0 border-zinc-300 mx-4 my-2"/>
 

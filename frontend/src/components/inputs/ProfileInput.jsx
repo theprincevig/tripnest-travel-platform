@@ -8,8 +8,8 @@ export default function ProfileInput({ type, id = "", value, placeholder, onChan
                 placeholder={placeholder}
                 onChange={onChange}
                 className={`
-                    w-full border-2 rounded-xl shadow-md px-3 py-2 outline-none 
-                    active:scale-98 transition-all duration-200
+                    w-full border-2 rounded-xl shadow-md inset-shadow-xs px-3 py-2 outline-none 
+                    text-sm sm:text-base active:scale-98 transition-all duration-200
                     ${error 
                         ? "border-red-200 bg-red-50" 
                         : "border-transparent bg-white"

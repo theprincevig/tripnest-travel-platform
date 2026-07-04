@@ -6,7 +6,7 @@ export default function UserImageCard({ style, iconSize, role, picture }) {
             <img 
                 src={picture || "/user/avatar.png"} 
                 alt="user" 
-                className={`${style} rounded-full object-cover cursor-pointer`}
+                className={`${style} rounded-full object-cover shrink-0 cursor-pointer`}
             />
             
             {role === "host" && 

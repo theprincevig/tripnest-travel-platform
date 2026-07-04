@@ -16,7 +16,7 @@ export default function SearchInput({
 
     return (
         <div 
-            className="relative w-full max-w-3xl flex items-center rounded-full bg-white 
+            className="relative w-full max-w-3xl mx-auto flex items-center rounded-full bg-white 
             border border-zinc-200 shadow-lg inset-shadow-sm p-2 overflow-hidden 
             active:scale-99 transition-all"
         >
@@ -35,7 +35,7 @@ export default function SearchInput({
                 value={value}
                 placeholder={placeholder}
                 onChange={onChange}
-                className="w-full ml-8 outline-none" 
+                className="flex-1 ml-8 text-sm sm:text-base outline-none" 
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
@@ -45,16 +45,19 @@ export default function SearchInput({
                 className={`
                     flex items-center text-white rounded-full bg-blue-500 cursor-pointer 
                     transition-all duration-300 ease-in-out
-                    ${isActive ? "px-4 py-3 gap-2" : "p-3 gap-0"}
+                    ${isActive 
+                        ? "px-3 sm:px-4 py-2 sm:py-3 gap-2" 
+                        : "p-2 sm:p-3 gap-0"
+                    }
                 `}
                 onClick={handleSearch}
             >
                 {<Search size={22} />}
                 <span
                     className={`
-                        overflow-hidden whitespace-nowrap font-[Archivo]
-                        font-semibold transition-all duration-300 ease-in-out
-                        ${isActive ? "max-w-25 opacity-100" : "max-w-0 opacity-0"}
+                        overflow-hidden whitespace-nowrap font-[Archivo] 
+                        font-semibold transition-all duration-300 ease-in-out 
+                        ${isActive ? "max-w-24 opacity-100" : "max-w-0 opacity-0"}
                     `}
                 >
                     search

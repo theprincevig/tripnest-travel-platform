@@ -22,12 +22,12 @@ export default function ImageChanger({ preview, error, onUpload }) {
                         <div className="absolute inset-0 bg-black/40 backdrop-blur-xs flex flex-col items-center justify-center gap-2 transition-all duration-200">
                             <label 
                                 htmlFor="image-upload" 
-                                className="flex flex-col gap-2 items-center font-[Archivo] font-bold text-white text-4xl cursor-pointer"
+                                className="flex flex-col gap-2 items-center font-[Archivo] font-bold text-white text-lg sm:text-4xl cursor-pointer"
                             >
                                 <p className="flex gap-2 items-center">
-                                    <Images size={32} /> Change image
+                                    <Images className="size-4 sm:size-6" /> Change image
                                 </p>
-                                <span className="text-sm opacity-90">JPG, JPEG, PNG & WEBP up to 5MB</span>
+                                <span className="text-xs sm:text-sm opacity-90">JPG, JPEG, PNG & WEBP up to 5MB</span>
                             </label>
                         </div>
                     </>

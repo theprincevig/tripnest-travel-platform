@@ -22,7 +22,7 @@ export default function ProfileAboutSection({
                 placeholder="about youself...."
                 onChange={handleNestedChange("hostProfile", "about")}
                 className={`
-                    w-full max-w-md rounded-xl border 
+                    w-full max-w-md rounded-xl border text-sm sm:text-base
                     px-3 py-2 outline-none active:scale-98 transition-all duration-200 
                     ${Host ? "shadow-md inset-shadow-2xs" : "border-zinc-200"}
                     ${error 

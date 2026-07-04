@@ -55,14 +55,14 @@ export default function Navbar({ isSearchVisible }) {
 
     return (
         <div className="sticky top-0 w-full flex flex-col items-center border-b-2 border-zinc-200/50 bg-zinc-100/30 backdrop-blur-md p-2 z-1000">
-            <div className="w-[95%] h-20 flex items-center justify-between">
+            <div className="w-[95%] h-16 sm:h-18 md:h-20 flex items-center justify-between gap-2">
                 {/* logo section */}
                 <div className="flex items-center">
                     <img 
                         src="/tripnest-logo.png" 
                         alt="tripnest-logo" 
                         onClick={() => navigate("/")}
-                        className="w-40 object-cover cursor-pointer" 
+                        className="w-20 sm:w-28 md:w-36 lg:w-40 object-cover cursor-pointer shrink-0" 
                     />
                 </div>
 
@@ -83,7 +83,7 @@ export default function Navbar({ isSearchVisible }) {
 
             {/* search section */}
             {isSearchVisible && (
-                <div className="w-full flex items-center justify-center h-30">
+                <div className="w-full flex justify-center px-4 py-3">
                     <SearchInput
                         type="text"
                         name="search"

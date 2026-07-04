@@ -10,7 +10,10 @@ export default function ProfileRadio({ label, radioFor, name, value, onChange}) 
                 onChange={onChange}
                 className="w-full"
             />
-            <label htmlFor={radioFor}>
+            <label 
+                htmlFor={radioFor}
+                className="text-sm sm:text-base"
+            >
                 {label}
             </label>
         </div>

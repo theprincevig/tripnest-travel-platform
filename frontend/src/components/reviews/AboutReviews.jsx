@@ -47,8 +47,8 @@ export default function AboutReviews({
     };
 
     return (
-        <div className="py-4">
-            <h2 className="flex items-center text-2xl font-[Archivo] font-semibold mb-8">
+        <div className="py-4 overflow-hidden">
+            <h2 className="flex items-center text-xl sm:text-2xl font-[Archivo] font-semibold mb-8">
                 <div className="flex items-center gap-2">
                     <Star size={20} />
                     {averageRating}
@@ -67,7 +67,7 @@ export default function AboutReviews({
             ) : (
                 <>
                     {reviews.length <= 0 ? (
-                        <p className="text-center font-[Mulish] font-bold text-zinc-400 ">
+                        <p className="text-center text-sm font-[Mulish] font-bold text-zinc-400 ">
                             No Reviews yet
                         </p>
                     ) : (

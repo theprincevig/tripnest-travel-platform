@@ -51,8 +51,8 @@ export default function CurrencyModal({ isOpen, onClose }) {
             onClick={onClose}
             className={`
                 fixed inset-0 flex justify-center items-center 
-                bg-black/30 z-2000 
-                transition-opacity duration-300 
+                bg-black/30 z-2000 px-3
+                transition-opacity duration-300
                 ${isOpen ? "opacity-100" : "opacity-0"}
             `}
         >
@@ -76,7 +76,7 @@ export default function CurrencyModal({ isOpen, onClose }) {
 
                 <div className="border-t border-zinc-200 mb-6" />
 
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 overflow-y-auto">
+                <div className="max-h-[60vh] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 overflow-y-auto pr-1">
                     {currencies.map((currency) => {
                         const isActive = activeCurrency.code === currency.code;
 
@@ -90,8 +90,8 @@ export default function CurrencyModal({ isOpen, onClose }) {
                                 `}
                             >
                                 <div className="flex flex-col">
-                                    <h4 className="font-[Mulish] font-semibold">{currency.name}</h4>
-                                    <p className="text-sm text-zinc-700">
+                                    <h4 className="text-sm sm:text-base font-[Mulish] font-semibold">{currency.name}</h4>
+                                    <p className="text-xs sm:text-sm text-zinc-700">
                                         {currency.code}-{currency.symbol}
                                     </p>
                                 </div>

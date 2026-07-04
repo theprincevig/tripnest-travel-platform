@@ -24,7 +24,7 @@ export default function UserModal({ user, isOpen, onClose }) {
             onClick={onClose}
             className={`
                 fixed inset-0 flex items-center justify-center 
-                bg-black/30 z-2000 
+                bg-black/30 z-2000 px-3
                 transition-opacity duration-300 
                 ${isOpen ? "opacity-100" : "opacity-0"}
             `}

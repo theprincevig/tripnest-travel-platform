@@ -6,15 +6,15 @@ export default function Footer() {
     const activeCurrency = useActiveCurrency();
 
     return (
-        <footer className="w-full border-t border-zinc-200/60 bg-zinc-100 pb-20 mt-auto">
-            <div className="flex flex-col gap-4 mx-8 p-4">
+        <footer className="w-full border-t border-zinc-200/60 bg-zinc-100 pb-5 sm:pb-20 mt-auto">
+            <div className="flex flex-col gap-3 mx-4 p-4">
                 {/* Top */}
-                <div className="text-sm text-zinc-500">
+                <div className="text-xs sm:text-sm text-zinc-500">
                     © 2026 TripNest, Inc.
                 </div>
 
-                <div className="w-full flex items-center justify-between">
-                    <div className="flex sm:flex-row flex-col items-center gap-2 text-sm opacity-80">
+                <div className="w-full flex sm:flex-row flex-col items-center justify-between gap-4">
+                    <div className="w-full flex sm:flex-row flex-col items-start gap-2 text-xs sm:text-sm opacity-80">
                         <button className="flex items-center gap-1 hover:underline">
                             <Dot size={12} /> Privacy
                         </button>
@@ -32,8 +32,8 @@ export default function Footer() {
                         </button>
                     </div>
 
-                    <div className="flex items-center gap-1">
-                        <p className="font-[Archivo] font-medium px-2 py-1">
+                    <div className="w-full flex items-center justify-end gap-1">
+                        <p className="font-[Archivo] text-sm font-medium px-2 py-1">
                             {activeCurrency.details.symbol}
                             {" "}
                             {activeCurrency.code}
@@ -42,21 +42,21 @@ export default function Footer() {
                             href="https://www.instagram.com/princeehehehe/"
                             className="p-2 rounded-full hover:bg-zinc-100 transition-all cursor-pointer"
                         >
-                            <FaInstagram size={18} />
+                            <FaInstagram size={16} />
                         </a>
 
                         <a 
                             href="https://www.linkedin.com/in/princevig/"
                             className="p-2 rounded-full hover:bg-zinc-100 transition-all cursor-pointer"
                         >
-                            <FaLinkedin size={18} />
+                            <FaLinkedin size={16} />
                         </a>
 
                         <a 
                             href="https://github.com/theprincevig"
                             className="p-2 rounded-full hover:bg-zinc-100 transition-all cursor-pointer"
                         >
-                            <FaGithub size={18} />
+                            <FaGithub size={16} />
                         </a>
                     </div>
                 </div>

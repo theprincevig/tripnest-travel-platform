@@ -32,7 +32,7 @@ export default function InputChanger({
                         ${error ? "bg-red-50 shadow-red-200 inset-shadow-red-100" : ""}
                     `}
                 >
-                    <span className="text-2xl opacity-60">{symbol}</span>
+                    <span className="text-base sm:text-2xl opacity-60">{symbol}</span>
                     <input 
                         type={type}
                         value={value}
@@ -40,7 +40,7 @@ export default function InputChanger({
                         onChange={(e) => onChange(e)}
                         className="w-full outline-none"
                     />
-                    <span className="absolute right-5 bottom-2 text-base opacity-40">/night</span>
+                    <span className="absolute right-5 bottom-2 text-xs sm:text-base opacity-40">/night</span>
                 </div>
             ) : (
                 <input 

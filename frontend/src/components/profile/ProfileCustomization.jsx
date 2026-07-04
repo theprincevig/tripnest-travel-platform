@@ -12,9 +12,9 @@ export default function ProfileCustomization({
 }) {
     return (
         <div className="flex flex-col space-y-8 p-2">
-            <div className="flex items-end justify-start gap-5">
-                <label>Full Name</label>
-                <div className="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-2 gap-10">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-start gap-2 sm:gap-5">
+                <label className="text-sm sm:text-base">Full Name</label>
+                <div className="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-10">
                     <ProfileInput 
                         type="text"
                         value={data.fullName?.firstName}
@@ -33,9 +33,9 @@ export default function ProfileCustomization({
                 </div>
             </div>
             
-            <div className="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-2 gap-10">
-                <div className="flex items-end justify-start gap-5">
-                    <label>Date of Birth</label>
+            <div className="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-10">
+                <div className="flex flex-col sm:flex-row sm:items-end justify-start gap-2 sm:gap-5">
+                    <label className="text-sm sm:text-base">Date of Birth</label>
                     <ProfileInput 
                         type="date"
                         value={data.dob}
@@ -44,8 +44,8 @@ export default function ProfileCustomization({
                     />
                 </div>
 
-                <div className="flex items-end justify-start gap-5">
-                    <label>Phone No.</label>
+                <div className="flex flex-col sm:flex-row sm:items-end justify-start gap-2 sm:gap-5">
+                    <label className="text-sm sm:text-base">Phone No.</label>
                     <ProfileInput 
                         type="text"
                         value={data.phone}
@@ -56,7 +56,7 @@ export default function ProfileCustomization({
             </div>
 
             <div className="flex items-end justify-start gap-5">
-                <label>Gender</label>
+                <label className="text-sm sm:text-base">Gender</label>
 
                 <ProfileRadio 
                     label="Male"
@@ -83,9 +83,9 @@ export default function ProfileCustomization({
                 />
             </div>
 
-            <div className="flex items-end justify-start gap-5">
-                <label>Address</label>
-                <div className="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-3 gap-10">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-start gap-2 sm:gap-5">
+                <label className="text-sm sm:text-base">Address</label>
+                <div className="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-10">
                     <ProfileInput 
                         type="text"
                         value={data.address?.city}
@@ -114,14 +114,19 @@ export default function ProfileCustomization({
 
             <div 
                 className={`
-                    flex items-center justify-start gap-5  
+                    flex flex-col sm:flex-row sm:items-center justify-start gap-2 sm:gap-5  
                     ${user?.role === "host"
                         ? "opacity-100" 
                         : "opacity-50 pointer-events-none"
                     }
                 `}
             >
-                <label htmlFor="languages">Languages</label>
+                <label 
+                    htmlFor="languages"
+                    className="text-sm sm:text-base"
+                >
+                    Languages
+                </label>
                 <LanguageSelector 
                     user={user}
                     data={data}

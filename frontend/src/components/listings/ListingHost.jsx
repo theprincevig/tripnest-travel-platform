@@ -17,12 +17,12 @@ export default function ListingHost({ owner }) {
                     className="flex items-center gap-2"
                 >
                     <UserImageCard 
-                        style="w-12 h-12"
+                        style="w-10 sm:w-12 h-10 sm:h-12"
                         iconSize={16}
                         role={owner?.role}
                         picture={owner?.picture}
                     />
-                    <p className="text-lg hover:underline transition-all">hosted by {displayName}</p>
+                    <p className="text-sm sm:text-lg hover:underline transition-all">hosted by {displayName}</p>
                 </div>
             </button>
 

@@ -26,7 +26,7 @@ export default function CheckInOutCard({
                         type="date"
                         value={checkIn}
                         onChange={(e) => setCheckIn(e.target.value)}
-                        className="w-full text-sm outline-none"
+                        className="w-full text-xs sm:text-sm outline-none"
                     />
                 </div>
 
@@ -38,7 +38,7 @@ export default function CheckInOutCard({
                         type="date"
                         value={checkOut}
                         onChange={(e) => setCheckOut(e.target.value)}
-                        className="w-full text-sm outline-none"
+                        className="w-full text-xs sm:text-sm outline-none"
                     />
                 </div>
            </div>

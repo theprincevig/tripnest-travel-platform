@@ -33,7 +33,7 @@ export default function AlertModal({
             onClick={onCancel}
             className={`
                 fixed inset-0 flex justify-center items-center 
-                bg-black/20 backdrop-blur-sm z-2000 
+                bg-black/20 backdrop-blur-sm z-2000 px-3
                 transition-opacity duration-300 
                 ${isOpen ? "opacity-100" : "opacity-0"}
             `}
@@ -48,13 +48,13 @@ export default function AlertModal({
                 `}
             >
                 <div className="flex flex-col items-center justify-center">
-                    <h3 className="text-2xl font-[Archivo] font-bold">
+                    <h3 className="text-xl sm:text-2xl font-[Archivo] font-bold">
                         {hasCancellationFee 
                             ? "Cancellation Fee Applies" 
                             : "Are You Sure?"
                         }
                     </h3>
-                    <p className="text-sm text-zinc-700">
+                    <p className="text-xs sm:text-sm text-zinc-700">
                         {content}
                     </p>
 

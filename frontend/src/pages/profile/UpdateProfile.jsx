@@ -193,14 +193,14 @@ export default function UpdateProfile() {
                         <Link 
                             to={`/users/${authUser?.username}`}
                             type="submit"
-                            className="w-full max-w-40 default-btn"
+                            className="w-full max-w-25 sm:max-w-40 default-btn"
                         >
                             Back
                         </Link>
 
                         <button 
                             type="submit"
-                            className="w-full max-w-40 primary-btn"
+                            className="w-full max-w-25 sm:max-w-40 primary-btn"
                             disabled={isUpdatingProfile}
                         >
                             {isUpdatingProfile 

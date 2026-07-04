@@ -85,14 +85,14 @@ export default function Login() {
 
                             <button 
                                 type="submit"
-                                className="w-full max-w-40 primary-btn mt-8"
+                                className="w-full max-w-25 sm:max-w-40 primary-btn mt-8"
                                 disabled={isLoggingIn}
                             >
                                 { isLoggingIn ? <Loader size={20} className="animate-spin mx-auto" /> : "Login" }
                             </button>
                         </form>
 
-                        <p className="text-sm text-slate-800 mt-3 mb-5">
+                        <p className="text-[11px] sm:text-sm text-slate-800 mt-3">
                             Don't have an Account?{" "}
                             <Link 
                                 to="/register"

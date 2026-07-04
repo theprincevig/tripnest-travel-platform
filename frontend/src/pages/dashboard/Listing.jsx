@@ -93,7 +93,7 @@ export default function Listing() {
                     <LoaderCircle size={35} className="animate-spin" />
                 ) : (
                     <div className="w-full max-w-5xl space-y-6">
-                        <p className="text-4xl font-[Archivo] font-bold">{singleListing?.title}</p>
+                        <p className="text-xl sm:text-4xl font-[Archivo] font-bold">{singleListing?.title}</p>
                         <img 
                             src={singleListing?.image} 
                             alt={singleListing?.title} 
@@ -102,9 +102,9 @@ export default function Listing() {
 
                         <div className="flex flex-col lg:flex-row gap-10">
                             <div className="flex-1 font-[Mulish] space-y-2">
-                                <p className="text-2xl font-semibold">{singleListing?.description}</p>
-                                <p className="text-xl font-medium">{singleListing?.location} - {singleListing?.country}</p>
-                                <p className="text-lg font-[Archivo] font-bold flex items-center gap-1">
+                                <p className="text-sm sm:text-2xl font-semibold">{singleListing?.description}</p>
+                                <p className="text-xs sm:text-xl font-medium">{singleListing?.location} - {singleListing?.country}</p>
+                                <p className="text-xs sm:text-lg font-[Archivo] font-bold flex items-center gap-1">
                                     <Star size={12} />
                                     {stats.averageRating || "0.0"}
                                 </p>

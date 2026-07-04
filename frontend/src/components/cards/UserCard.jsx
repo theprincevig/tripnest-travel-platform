@@ -31,8 +31,8 @@ export default function UserCard({
             <button 
                 onClick={handleReserve}
                 className={`
-                    w-full py-2 rounded-xl font-[Archivo] font-bold text-lg 
-                    border-2 transition-all duration-200 cursor-pointer 
+                    w-full py-2 rounded-xl font-[Archivo] font-bold text-sm 
+                    sm:text-lg border-2 transition-all duration-200 cursor-pointer 
                     ${reserved 
                         ? "bg-transparent text-green-500 border-green-400" 
                         : "bg-green-500 text-white border-green-500 hover:opacity-90"
@@ -46,7 +46,7 @@ export default function UserCard({
                     reserved ? "Reserved" : "Reserve"
                 )}
             </button>
-            <p className="text-sm font-[Mulish] text-center">You won't be charged yet.</p>
+            <p className="text-xs sm:text-sm font-[Mulish] text-center">You won't be charged yet.</p>
         </>
     );
 }

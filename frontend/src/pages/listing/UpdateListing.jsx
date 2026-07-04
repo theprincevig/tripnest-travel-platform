@@ -128,7 +128,7 @@ export default function UpdateListing() {
                             placeholder="Give your title"
                             onChange={handleChange("title")}
                             error={errors.title}
-                            style="w-full max-w-3xl text-3xl font-[Archivo] font-bold"
+                            style="w-full max-w-3xl text-xl sm:text-3xl font-[Archivo] font-bold"
                         />
 
                         <ImageChanger 
@@ -137,7 +137,7 @@ export default function UpdateListing() {
                             onUpload={handleImageChange}
                         />
 
-                        <div className="flex flex-col gap-10">
+                        <div className="flex flex-col gap-6 sm:gap-10">
                             <InputChanger 
                                 isTextArea={true}
                                 value={listingData.description}
@@ -145,7 +145,7 @@ export default function UpdateListing() {
                                 onChange={handleChange("description")}
                                 error={errors.description}
                                 rows={4}
-                                style="w-full max-w-3xl text-2xl"
+                                style="w-full max-w-3xl text-sm sm:text-2xl"
                             />
 
                             <InputChanger 
@@ -156,10 +156,10 @@ export default function UpdateListing() {
                                 onChange={handleChange("price")}
                                 error={errors.price}
                                 symbol={activeCurrency.details.symbol}
-                                style="relative w-full max-w-md flex items-center gap-2 text-xl"
+                                style="relative w-full max-w-md flex items-center gap-2 text-sm sm:text-xl"
                             />
 
-                            <div className="w-full max-w-3xl grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div className="w-full max-w-3xl grid grid-cols-2 gap-5">
                                 <InputChanger 
                                     isTextArea={false}
                                     type="text"
@@ -167,7 +167,7 @@ export default function UpdateListing() {
                                     placeholder="Add your listing's location"
                                     onChange={handleChange("location")}
                                     error={errors.location}
-                                    style="w-full text-xl"
+                                    style="w-full text-xs sm:text-xl"
                                 />
 
                                 <InputChanger 
@@ -177,7 +177,7 @@ export default function UpdateListing() {
                                     placeholder="Your country"
                                     onChange={handleChange("country")}
                                     error={errors.country}
-                                    style="w-full text-xl"
+                                    style="w-full text-xs sm:text-xl"
                                 />
                             </div>
                         </div>
@@ -193,14 +193,14 @@ export default function UpdateListing() {
                             <Link 
                                 to={`/listings/${listingId}`}
                                 type="submit"
-                                className="w-full max-w-40 default-btn"
+                                className="w-full max-w-25 sm:max-w-40 default-btn"
                             >
                                 Back
                             </Link>
 
                             <button 
                                 type="submit"
-                                className="w-full max-w-40 primary-btn"
+                                className="w-full max-w-25 sm:max-w-40 primary-btn"
                                 disabled={updateListingLoading}
                             >
                                 { updateListingLoading ? <Loader size={20} className="animate-spin mx-auto" /> : "Submit" }
