@@ -62,7 +62,7 @@ export default function Navbar({ isSearchVisible }) {
                         src="/tripnest-logo.png" 
                         alt="tripnest-logo" 
                         onClick={() => navigate("/")}
-                        className="w-20 sm:w-28 md:w-36 lg:w-40 object-cover cursor-pointer shrink-0" 
+                        className="h-12 sm:h-14 md:h-16 lg:h-18 xl:h-20 w-auto max-w-full object-contain cursor-pointer shrink-0" 
                     />
                 </div>
 

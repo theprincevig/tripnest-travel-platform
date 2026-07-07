@@ -16,14 +16,14 @@ export default function SearchInput({
 
     return (
         <div 
-            className="relative w-full max-w-3xl mx-auto flex items-center rounded-full bg-white 
-            border border-zinc-200 shadow-lg inset-shadow-sm p-2 overflow-hidden 
-            active:scale-99 transition-all"
+            className="relative w-full max-w-3xl mx-auto flex items-center 
+            rounded-full bg-white border border-zinc-200 shadow-lg 
+            inset-shadow-sm p-2 active:scale-99 transition-all overflow-hidden"
         >
             {value && (
                 <button 
                     onClick={handleClear}
-                    className="absolute left-3 opacity-60 hover:opacity-100 transition-all duration-200 cursor-pointer"
+                    className="absolute left-2 opacity-60 hover:opacity-100 transition-all duration-200 cursor-pointer"
                 >
                     <X size={22} />
                 </button>
@@ -35,7 +35,7 @@ export default function SearchInput({
                 value={value}
                 placeholder={placeholder}
                 onChange={onChange}
-                className="flex-1 ml-8 text-sm sm:text-base outline-none" 
+                className="h-full flex-1 ml-6 text-sm sm:text-base outline-none" 
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}

@@ -7,6 +7,18 @@ export default function CheckInOutCard({
     setCheckOut,
     setGuestsCount
 }) {
+
+    const handleGuestsCount = (e) => {
+        const value = e.target.value;
+
+        if (value === "") {
+            setGuestsCount("");
+            return;
+        }
+        
+        setGuestsCount(Math.max(1, Number(value)));
+    };
+
     return (
         <div 
             className={`
@@ -50,9 +62,7 @@ export default function CheckInOutCard({
                     type="number"
                     min="1"
                     value={guestsCount}
-                    onChange={(e) => 
-                        setGuestsCount(Math.max(1, Number(e.target.value)))
-                    }
+                    onChange={handleGuestsCount}
                     className="w-full text-sm pl-4 outline-none"
                 />
             </div>
