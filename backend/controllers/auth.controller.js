@@ -136,13 +136,13 @@ module.exports.googleLogin = async (req, res) => {
             });
         }
 
-        GET_SAFE(user._id);
+        const safeUser = await GET_SAFE(user._id);
         generateTokenAndCookie(user._id, res);
 
         return res.status(200).json({
             success: true,
             message: "Logged-in successfully via Google!",
-            user
+            user: safeUser
         });
     } catch (error) {
         console.error("Google Login Error: ", error);
