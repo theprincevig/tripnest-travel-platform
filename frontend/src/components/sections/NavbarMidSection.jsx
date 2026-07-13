@@ -12,17 +12,23 @@ export default function NavbarMidSection({
     const [myTripModal, setMyTripModal] = useState(false);
 
     return (
-        <>
+        <div className="flex-1 flex items-center justify-center gap-5">
             {isSearchVisible && (
-                host ? (
-                    <Link 
-                        to="/new"
-                        className="no-bg-btn"
-                    >
-                        <Plus size={16} />
-                        <span className="text-sm sm:text-lg">New</span>
-                    </Link>
-                ) : (
+                <>
+                    {host && (
+                        <>
+                            <Link 
+                                to="/new"
+                                className="no-bg-btn"
+                            >
+                                <Plus size={16} />
+                                <span className="text-sm sm:text-lg">New</span>
+                            </Link>
+                            
+                            <div className="h-4 w-px bg-zinc-400" />
+                        </>
+                    )}
+                    
                     <button 
                         onClick={() => {
                             if (!user) {
@@ -36,13 +42,13 @@ export default function NavbarMidSection({
                         <Plane size={16} />
                         <span className="text-sm sm:text-lg">My trips</span>
                     </button>
-                )
+                </>                
             )}
 
             <MyTripModal 
                 isOpen={myTripModal}
                 onClose={() => setMyTripModal(false)}
             />
-        </>
+        </div>
     );
 }

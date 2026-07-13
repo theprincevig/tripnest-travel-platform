@@ -72,14 +72,16 @@ export default function ViewProfile() {
                                     name={displayName}
                                 />
 
-                                <div className="w-full border-t border-zinc-300 text-center mt-8" />
 
                                 {profileUser?.role === "host" && (
-                                    <ProfileListings 
-                                        name={displayName}
-                                        listings={userListings}
-                                        userCurrency={activeCurrency.code}
-                                    />
+                                    <>
+                                        <div className="w-full border-t border-zinc-300 text-center mt-8" />
+                                        <ProfileListings 
+                                            name={displayName}
+                                            listings={userListings}
+                                            userCurrency={activeCurrency.code}
+                                        />
+                                    </>
                                 )}
 
                                 {authUser?.username !== profileUser?.username && (

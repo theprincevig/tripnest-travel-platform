@@ -44,7 +44,7 @@ export default function CheckInOutCard({
 
                 <div className="flex-1 p-2">
                     <p className="text-xs font-semibold uppercase">
-                        Check-in
+                        Check-out
                     </p>
                     <input 
                         type="date"
